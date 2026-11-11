@@ -43,6 +43,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 body { background: var(--paper); color: var(--ink); font-family: var(--f-text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; caret-color: var(--green); }
@@ -359,6 +360,74 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
 .store { border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 6px 12px; font-size: .72rem; line-height: 1.2; }
 .store b { display: block; font-size: .95rem; }
 @media (max-width: 860px) { .foot .cols { grid-template-columns: 1fr 1fr; } .foot .cols > :first-child { grid-column: 1 / -1; } }
+/* Modes du simulateur */
+.modes { display: inline-flex; gap: 2px; background: rgba(255,255,255,.08); border-radius: 6px; padding: 3px; }
+.mode { font: inherit; font-size: .82rem; font-weight: 600; color: inherit; background: transparent; border: 0; border-radius: 4px; padding: 5px 12px; cursor: pointer; opacity: .7; transition: background-color 160ms ease, opacity 160ms ease; }
+.mode[aria-pressed="true"] { background: var(--yellow); color: #1b1600; opacity: 1; }
+.exam-top { flex-wrap: wrap; }
+.listen { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: .85rem; font-weight: 600; color: inherit; background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.16); border-radius: 999px; padding: 6px 12px 6px 8px; cursor: pointer; align-self: flex-start; }
+.listen svg { width: 18px; height: 18px; }
+.listen:disabled { opacity: .45; cursor: default; }
+.listen.on { border-color: var(--yellow); }
+.listen.on .wave i { animation: wave 900ms ease-in-out infinite; }
+.wave { display: inline-flex; gap: 2px; align-items: center; height: 14px; }
+.wave i { width: 3px; height: 100%; background: var(--yellow); border-radius: 2px; transform-origin: center; transform: scaleY(.35); }
+.wave i:nth-child(2) { animation-delay: 120ms !important; } .wave i:nth-child(3) { animation-delay: 240ms !important; } .wave i:nth-child(4) { animation-delay: 360ms !important; }
+@keyframes wave { 50% { transform: scaleY(1); } }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); gap: 10px; }
+.card { font-family: var(--f-display); font-weight: 800; font-size: 2rem; color: inherit; aspect-ratio: 1 / 1.15; max-width: 100%; border-radius: 8px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05); cursor: pointer; transition: transform 140ms var(--ease-out), border-color 160ms ease, background-color 160ms ease; }
+.card[aria-pressed="true"] { background: var(--yellow); color: #1b1600; border-color: var(--yellow); }
+.card:active { transform: scale(0.96); }
+.exam-note { font-size: .82rem; opacity: .65; }
+.bar20 { position: relative; height: 12px; border-radius: 6px; background: rgba(255,255,255,.12); margin: 18px 0 6px; }
+.bar20 span { position: absolute; inset: 0 auto 0 0; border-radius: 6px; }
+.bar20 b { position: absolute; top: -6px; bottom: -6px; width: 2px; background: #fff; }
+.bar20-legend { position: relative; height: 1.2em; font-size: .75rem; opacity: .7; font-variant-numeric: tabular-nums; }
+.bar20-legend span { position: absolute; top: 0; }
+.bar20-legend span:nth-child(2) { left: 70%; transform: translateX(-50%); }
+.bar20-legend span:nth-child(3) { right: 0; }
+.end ol li span small { display: block; opacity: .7; font-size: .82rem; }
+
+/* Espace élève */
+.space { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px; }
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 24px; min-width: 0; }
+.panel h3 { font-size: 1.15rem; }
+.panel .sub { color: var(--ink-2); font-size: .9rem; margin-top: 4px; }
+.avg { display: flex; align-items: baseline; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.avg b { font-family: var(--f-display); font-size: 3rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.avg span { color: var(--ink-2); }
+.chart { width: 100%; height: auto; margin-top: 10px; display: block; }
+.chart text { font-family: var(--f-text); font-size: 11px; fill: var(--ink-2); }
+.steps-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 0; }
+.steps-list li { display: grid; grid-template-columns: 24px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: .95rem; }
+.steps-list li:last-child { border-bottom: 0; }
+.steps-list svg { width: 22px; height: 22px; }
+.steps-list .meta { font-size: .82rem; color: var(--ink-2); font-variant-numeric: tabular-nums; text-align: right; }
+.steps-list .todo { color: var(--ink-2); }
+.weak { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.weak span { font-size: .8rem; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: var(--red-tint); color: var(--red); }
+@media (max-width: 900px) { .space { grid-template-columns: 1fr; } }
+
+/* Langues */
+.lang-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+.langs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.lang { background: var(--paper); padding: 16px; display: grid; gap: 2px; }
+.lang b { font-family: var(--f-display); font-size: 1.25rem; }
+.lang span { font-size: .8rem; color: var(--ink-2); }
+.lang .st { justify-self: start; margin-top: 8px; }
+.lang-grid .btn { margin-top: 24px; }
+@media (max-width: 900px) { .lang-grid { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 480px) { .langs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Comparatif */
+.compare { width: 100%; border-collapse: collapse; min-width: 640px; font-size: .95rem; }
+.compare th, .compare td { padding: 14px 12px; border-bottom: 1px solid var(--rule); text-align: center; vertical-align: middle; }
+.compare th:first-child, .compare td:first-child { text-align: left; }
+.compare thead th { font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); font-weight: 700; border-bottom: 2px solid var(--ink); }
+.compare thead th.us { color: var(--green); }
+.compare td.us { background: var(--green-tint); }
+.compare svg { width: 20px; height: 20px; vertical-align: middle; }
+.compare .part { font-size: .8rem; color: var(--ink-2); }
 </style>
 
 <div class="util">
@@ -375,14 +444,14 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
       <span><b>Volant Bénin</b><small>Auto-école agréée</small></span>
     </a>
     <nav class="nav" aria-label="Menu">
-      <a href="#code">Code en ligne</a>
-      <a href="#panneaux">Panneaux</a>
+      <a href="#code">Simulateur</a>
+      <a href="#espace">Espace élève</a>
+      <a href="#langues">Langues</a>
       <a href="#conduite">Conduite</a>
       <a href="#tarifs">Tarifs</a>
-      <a href="#ecoles">Pour les moniteurs</a>
     </nav>
     <div class="right">
-      <a class="btn btn-line login" href="#code">Espace élève</a>
+      <a class="btn btn-line login" href="#espace">Se connecter</a>
       <a class="btn btn-primary" href="#tarifs">S'inscrire</a>
     </div>
   </div>
@@ -393,13 +462,13 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     <div class="c">
       <div data-enter>
         <h1>Auto-école à Cotonou, avec <em>le code de la route sur ton téléphone</em></h1>
-        <p class="intro">Tu révises le code dans l'application, entre deux cours ou dans le bus. Tes leçons de conduite se font avec nos moniteurs et se réservent en ligne. Quand tes examens blancs sont bons, on t'inscrit à l'examen.</p>
+        <p class="intro">Tu révises sur ton téléphone avec les questions lues à voix haute, comme à l'épreuve e-codepermis. Tes leçons de conduite se réservent en ligne avec nos moniteurs. Quand tes examens blancs passent la barre des 14/20, on t'inscrit à l'examen.</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#code">Faire un test gratuit
+          <a class="btn btn-primary" href="#code">Faire un examen blanc gratuit
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           <a class="btn btn-line" href="#tarifs">Voir les tarifs</a>
         </div>
-        <p class="where"><span><b>Code en ligne</b> 15 000 FCFA</span><span><b>Permis B</b> 175 000 FCFA, en 3 fois</span><span><b>Départs</b> Cotonou, Calavi, Porto-Novo</span></p>
+        <p class="where"><span><b>Code en ligne</b> 5 000 FCFA les 3 mois</span><span><b>Permis B</b> payable en 3 fois</span><span><b>Android et iPhone</b>, même hors connexion</span></p>
       </div>
 
       <div class="device">
@@ -411,12 +480,12 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
             <div class="app">
               <div class="hi"><div><span style="color:#5b6862">Bonsoir</span><b>Aïcha</b></div><div class="avatar">AK</div></div>
               <div class="ready">
-                <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="7"/><circle cx="32" cy="32" r="26" fill="none" stroke="#f2c230" stroke-width="7" stroke-linecap="round" stroke-dasharray="134 164" transform="rotate(-90 32 32)"/><text x="32" y="37.5" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" font-family="Barlow Semi Condensed, Arial, sans-serif">82%</text></svg>
-                <div><b>Presque prête</b><span>Encore 2 examens blancs à 35/40 ou plus</span></div>
+                <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="7"/><circle cx="32" cy="32" r="26" fill="none" stroke="#f2c230" stroke-width="7" stroke-linecap="round" stroke-dasharray="129 164" transform="rotate(-90 32 32)"/><text x="32" y="37.5" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" font-family="Barlow Semi Condensed, Arial, sans-serif">15,8</text></svg>
+                <div><b>Au-dessus de la barre</b><span>Moyenne sur 20 · il faut 14 pour réussir</span></div>
               </div>
               <div class="tile">
                 <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#fdf3d3"/><polygon points="17,7 27,25 7,25" fill="#fff" stroke="#c8202a" stroke-width="2.6" stroke-linejoin="round"/></svg>
-                <div><b>Reprendre la série 12</b><span>Intersections · 18/40</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div><b>Reprendre la série 12</b><span>Intersections · question 9 sur 20</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <div class="tile">
                 <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#e5f1eb"/><rect x="9" y="10" width="16" height="15" rx="2" fill="none" stroke="#0b6b46" stroke-width="2"/><path d="M9 14h16M13 8v4M21 8v4" stroke="#0b6b46" stroke-width="2"/></svg>
@@ -424,7 +493,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
               </div>
               <div class="tile">
                 <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#e4ecf7"/><path d="M10 22l5-6 4 4 5-8" fill="none" stroke="#0d4fa0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div><b>Dernier examen blanc</b><span>36/40 · hier, 21 h 10</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div><b>Dernier examen blanc</b><span>17/20 · hier, 21 h 10</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <div class="tile">
                 <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#fdf3d3"/><rect x="8" y="11" width="18" height="12" rx="2" fill="none" stroke="#8a6a00" stroke-width="2"/><path d="M8 15h18" stroke="#8a6a00" stroke-width="2"/></svg>
@@ -443,13 +512,13 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     <div class="c">
       <div class="sec-head">
         <div><h2 id="t-parcours">Le parcours, de l'inscription au permis</h2></div>
-        <p>Compte environ dix semaines. Le dossier se fait entièrement en ligne : tu te déplaces seulement pour tes leçons de conduite et le jour de l'examen.</p>
+        <p>Le dossier et les révisions se font en ligne. Tu te déplaces pour les cours en salle, les leçons de conduite et les deux examens.</p>
       </div>
       <ol class="path">
-        <li><span class="when">Jour 1</span><h3>Inscription</h3><p>Ton numéro de téléphone, une photo de ta pièce d'identité et ta photo d'identité. Le dossier est vérifié dans la journée.</p></li>
-        <li><span class="when">Semaines 1 à 5</span><h3>Code en ligne</h3><p>Séries par thème, puis examens blancs chronométrés. Chaque erreur est expliquée.</p></li>
-        <li><span class="when">Semaines 4 à 9</span><h3>Conduite</h3><p>20 heures avec un moniteur diplômé, sur plateau puis en circulation.</p></li>
-        <li><span class="when">Semaine 10</span><h3>Examen</h3><p>Ton moniteur t'inscrit quand tu es prêt et t'accompagne au centre d'examen.</p></li>
+        <li><span class="when">Inscription</span><h3>Le dossier en ligne</h3><p>Ton numéro de téléphone, une photo de ta pièce d'identité et ta photo d'identité. L'auto-école vérifie le dossier dans la journée.</p></li>
+        <li><span class="when">Code</span><h3>En salle et sur ton téléphone</h3><p>Les cours théoriques en salle, et les révisions dans l'application, avec les questions lues à voix haute.</p></li>
+        <li><span class="when">Examen du code</span><h3>Quand tu passes 14/20</h3><p>Dès que tes examens blancs passent la barre, on t'inscrit à l'épreuve sur e-codepermis.</p></li>
+        <li><span class="when">Conduite</span><h3>Leçons et examen pratique</h3><p>Sur plateau puis en circulation, avec un moniteur diplômé, jusqu'à l'examen de conduite.</p></li>
       </ol>
     </div>
   </section>
@@ -457,15 +526,81 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   <section class="sec alt" id="code" aria-labelledby="t-code">
     <div class="c exam-wrap">
       <aside>
-        <div><h2 id="t-code">Entraîne-toi dans les conditions de l'examen</h2></div>
-        <p>Même déroulé que le jour J : une situation, 20 secondes, une ou plusieurs bonnes réponses. Tu valides, puis tu lis la correction.</p>
+        <div><h2 id="t-code">Le simulateur du code, réglé sur l'épreuve e-codepermis</h2></div>
+        <p>À l'examen de l'ANaTT, la question est lue à voix haute et il faut 14 sur 20 pour réussir. Le simulateur reprend ce déroulé, avec deux modes.</p>
         <div class="keys-legend">
-          <div><span class="kbd">A</span><span class="kbd">B</span><span class="kbd">C</span><span class="kbd">D</span>&nbsp;choisir une réponse</div>
-          <div><span class="kbd">Entrée</span>&nbsp;valider</div>
-          <div>Série d'essai de 8 questions. Dans l'application, une série en compte 40.</div>
+          <div><b style="color:var(--ink)">Entraînement</b>&nbsp;: le texte est affiché, tu peux réécouter, la correction suit chaque question.</div>
+          <div><b style="color:var(--ink)">Examen</b>&nbsp;: la question est lue une seule fois, rien n'est écrit, le résultat arrive à la fin.</div>
+          <div><span class="kbd">A</span><span class="kbd">B</span><span class="kbd">C</span><span class="kbd">D</span>&nbsp;répondre&nbsp;·&nbsp;<span class="kbd">Entrée</span>&nbsp;valider</div>
         </div>
       </aside>
       <div class="exam" id="exam" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="espace" aria-labelledby="t-space">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-space">L'espace élève : ta moyenne face à la barre des 14/20</h2></div>
+        <p>Chaque examen blanc compte. Tu vois ta moyenne, tes thèmes faibles et où en est ton dossier, du dépôt des pièces jusqu'à l'examen de conduite.</p>
+      </div>
+      <div class="space">
+        <div class="panel">
+          <h3>Examens blancs d'Aïcha</h3>
+          <p class="sub">10 derniers examens · 20 questions chacun</p>
+          <div class="avg"><b>15,8</b><span>sur 20 en moyenne sur les 5 derniers examens, tous à 14 ou plus</span></div>
+          <svg class="chart" viewBox="0 0 560 210" role="img" aria-label="Notes des 10 derniers examens blancs : 9, 11, 12, 11, 13, 15, 14, 16, 17 et 17 sur 20. Barre de réussite à 14.">
+            <g stroke="var(--rule)" stroke-width="1">
+              <line x1="40" y1="20" x2="550" y2="20"/><line x1="40" y1="70" x2="550" y2="70"/><line x1="40" y1="120" x2="550" y2="120"/><line x1="40" y1="170" x2="550" y2="170"/>
+            </g>
+            <text x="30" y="24" text-anchor="end">20</text><text x="30" y="74" text-anchor="end">15</text><text x="30" y="124" text-anchor="end">10</text><text x="30" y="174" text-anchor="end">5</text>
+            <line x1="40" y1="80" x2="550" y2="80" stroke="var(--red)" stroke-width="2" stroke-dasharray="6 5"/>
+            <text x="548" y="74" text-anchor="end" style="fill:var(--red);font-weight:700">14 / 20 : réussite</text>
+            <polygon fill="var(--green-tint)" points="50,180 50,130 105,110 160,100 215,110 270,90 325,70 380,80 435,60 490,50 545,50 545,180"/>
+            <polyline fill="none" stroke="var(--green)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="50,130 105,110 160,100 215,110 270,90 325,70 380,80 435,60 490,50 545,50"/>
+            <g fill="var(--paper)" stroke="var(--green)" stroke-width="2.5"><circle cx="50" cy="130" r="4"/><circle cx="105" cy="110" r="4"/><circle cx="160" cy="100" r="4"/><circle cx="215" cy="110" r="4"/><circle cx="270" cy="90" r="4"/><circle cx="325" cy="70" r="4"/><circle cx="380" cy="80" r="4"/><circle cx="435" cy="60" r="4"/><circle cx="490" cy="50" r="4"/></g>
+            <circle cx="545" cy="50" r="6" fill="var(--green)"/>
+            <text x="50" y="200" text-anchor="middle">1</text><text x="545" y="200" text-anchor="middle">10</text>
+          </svg>
+          <div class="weak"><span>À revoir : premiers secours</span><span>À revoir : croisements</span></div>
+        </div>
+        <div class="panel">
+          <h3>Le dossier, étape par étape</h3>
+          <p class="sub">Mis à jour par l'auto-école</p>
+          <ul class="steps-list">
+            <li><svg viewBox="0 0 22 22" aria-label="Fait"><circle cx="11" cy="11" r="10" fill="var(--green)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pièces du dossier reçues</span><span class="meta">3 oct.</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="Fait"><circle cx="11" cy="11" r="10" fill="var(--green)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Visite médicale</span><span class="meta">10 oct.</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="En cours"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--yellow)" stroke-width="2.5"/><path d="M11 6v5l3 2" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/></svg><span>Cours de code en salle</span><span class="meta">42 h / 60 h</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="À venir"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--rule)" stroke-width="2.5"/></svg><span class="todo">Inscription à l'examen du code</span><span class="meta">—</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="À venir"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--rule)" stroke-width="2.5"/></svg><span class="todo">Leçons de conduite</span><span class="meta">0 h</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="À venir"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--rule)" stroke-width="2.5"/></svg><span class="todo">Examen de conduite</span><span class="meta">—</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="langues" aria-labelledby="t-lang">
+    <div class="c lang-grid">
+      <div>
+        <h2 id="t-lang">Les questions lues à voix haute, en français et dans les langues du pays</h2>
+        <p class="muted" style="margin-top:18px">Beaucoup de candidats lisent peu le français. Chaque question et chaque réponse est lue à voix haute. Les enregistrements en langues nationales se font avec des moniteurs qui les parlent, langue par langue.</p>
+        <button type="button" class="btn btn-primary" id="say-demo">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2z" fill="currentColor"/><path d="M11.5 5.5a3.5 3.5 0 010 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Écouter une question
+        </button>
+      </div>
+      <div class="langs">
+        <div class="lang"><b>Français</b><span>Tout le pays</span><span class="st ready">Disponible</span></div>
+        <div class="lang"><b>Fon</b><span>Sud et centre</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Yoruba</b><span>Sud-est</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Goun</b><span>Ouémé</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Mina</b><span>Mono</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Adja</b><span>Couffo</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Bariba</b><span>Borgou</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Dendi</b><span>Alibori</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Ditammari</b><span>Atacora</span><span class="st work">En préparation</span></div>
+      </div>
     </div>
   </section>
 
@@ -525,20 +660,44 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     </div>
   </section>
 
-  <section class="sec" id="tarifs" aria-labelledby="t-tarifs">
+  <section class="sec" id="comparer" aria-labelledby="t-cmp">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-cmp">Une application de révision et une vraie auto-école, au même endroit</h2></div>
+        <p>Une application seule t'entraîne au code, mais ne t'apprend pas à conduire et ne dépose pas ton dossier. Une auto-école sans application te laisse réviser seul avec un livret. Ici, tu as les deux.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="compare">
+          <thead><tr><th scope="col">Ce dont tu as besoin</th><th scope="col" class="us">Volant Bénin</th><th scope="col">Application de révision seule</th><th scope="col">Auto-école sans application</th></tr></thead>
+          <tbody>
+              <tr><td>Questions lues à voix haute, comme à l'examen</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Mode examen : 20 questions, barre à 14/20</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Fonctionne sur Android et iPhone, même hors connexion</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><span class="part">Souvent Android seulement</span></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Moniteur qui voit tes résultats et te dit quand tu es prêt</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><span class="part">En salle seulement</span></td></tr>
+              <tr><td>Cours de code en salle et leçons de conduite</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td></tr>
+              <tr><td>Réservation des leçons en ligne</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Dossier ANaTT et inscription à l'examen suivis en ligne</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><span class="part">Sur place</span></td></tr>
+              <tr><td>Paiement en plusieurs fois par Mobile Money</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><span class="part">En une fois</span></td><td><span class="part">En espèces</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="tarifs" aria-labelledby="t-tarifs">
     <div class="c">
       <div class="sec-head">
         <div><h2 id="t-tarifs">Tarifs du code et du permis</h2></div>
-        <p>Les frais d'inscription à l'examen sont compris dans les formules permis A et B.</p>
+        <p>Le code en ligne seul ou la formation complète, avec la même application. Les frais d'examen de l'ANaTT sont réglés selon son barème.</p>
       </div>
       <div class="price-grid">
         <div class="table-scroll">
           <table class="tarifs">
             <thead><tr><th scope="col">Formule</th><th scope="col">Ce qui est compris</th><th scope="col">Prix</th></tr></thead>
             <tbody>
-              <tr><td><b>Code en ligne</b><span>Accès 6 mois</span></td><td><span>Séries illimitées, examens blancs, suivi par le moniteur</span></td><td class="amt">15 000<small>FCFA</small></td></tr>
-              <tr class="hl"><td><b>Permis B<span class="badge">Le plus choisi</span></b><span>Voiture</span></td><td><span>Code en ligne, 20 h de conduite, inscription et accompagnement à l'examen</span></td><td class="amt">175 000<small>FCFA</small></td></tr>
-              <tr><td><b>Permis A</b><span>Moto</span></td><td><span>Code en ligne, 10 h sur plateau et en circulation, inscription à l'examen</span></td><td class="amt">90 000<small>FCFA</small></td></tr>
+              <tr><td><b>Code en ligne</b><span>Accès 3 mois</span></td><td><span>Questions lues à voix haute, examens blancs illimités, hors connexion</span></td><td class="amt">5 000<small>FCFA</small></td></tr>
+              <tr class="hl"><td><b>Permis B<span class="badge">Le plus choisi</span></b><span>Voiture</span></td><td><span>Cours de code en salle et en ligne, leçons de conduite, dossier ANaTT, accompagnement aux deux examens</span></td><td class="amt">175 000<small>FCFA</small></td></tr>
+              <tr><td><b>Permis A</b><span>Moto</span></td><td><span>Code en salle et en ligne, leçons sur plateau et en circulation, dossier ANaTT</span></td><td class="amt">90 000<small>FCFA</small></td></tr>
               <tr><td><b>Heure supplémentaire</b><span>Voiture ou moto</span></td><td><span>À réserver dans l'application</span></td><td class="amt">5 000<small>FCFA</small></td></tr>
               <tr><td><b>Frais de dossier</b><span>Une seule fois</span></td><td><span>Vérification des pièces, ouverture du compte élève</span></td><td class="amt">10 000<small>FCFA</small></td></tr>
             </tbody>
@@ -552,13 +711,13 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
             <div><small>Semaine 4</small><b>55 000</b></div>
             <div><small>Avant l'examen</small><b>50 000</b></div>
           </div>
-          <div class="wallets"><span class="wallet">MTN MoMo</span><span class="wallet">Moov Money</span><span class="wallet">Celtiis Cash</span><span class="wallet">Espèces</span></div>
+          <div class="wallets"><span class="wallet">MTN MoMo</span><span class="wallet">Moov Money</span><span class="wallet">Celtiis Cash</span><span class="wallet">Carte bancaire</span><span class="wallet">Espèces</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec alt" id="ecoles" aria-labelledby="t-pro">
+  <section class="sec" id="ecoles" aria-labelledby="t-pro">
     <div class="c pro-grid">
       <div>
         
@@ -577,18 +736,18 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
             <div class="main">
               <div class="stats">
                 <div class="stat"><small>Élèves actifs</small><b>48</b></div>
-                <div class="stat"><small>Prêts pour l'examen</small><b>9</b></div>
+                <div class="stat"><small>À 14/20 ou plus</small><b>9</b></div>
                 <div class="stat"><small>Leçons cette semaine</small><b>31</b></div>
               </div>
               <div class="tw">
                 <table>
                   <thead><tr><th>Élève</th><th>Formule</th><th>Code</th><th>Conduite</th><th>Statut</th></tr></thead>
                   <tbody>
-                    <tr><td>Aïcha Kpadonou</td><td>Permis B</td><td class="num">36/40</td><td class="num"><span class="mini-bar"><i style="width:60%"></i></span>12 h</td><td><span class="st ready">Prête</span></td></tr>
-                    <tr><td>Sènan Ahouansou</td><td>Permis A</td><td class="num">34/40</td><td class="num"><span class="mini-bar"><i style="width:90%"></i></span>9 h</td><td><span class="st ready">Prêt</span></td></tr>
-                    <tr><td>Fifamè Agossou</td><td>Permis B</td><td class="num">29/40</td><td class="num"><span class="mini-bar"><i style="width:30%"></i></span>6 h</td><td><span class="st work">En cours</span></td></tr>
-                    <tr><td>Mariam Bio Sika</td><td>Permis B</td><td class="num">31/40</td><td class="num"><span class="mini-bar"><i style="width:45%"></i></span>9 h</td><td><span class="st late">Échéance due</span></td></tr>
-                    <tr><td>Koffi Dossou</td><td>Code seul</td><td class="num">24/40</td><td class="num">—</td><td><span class="st work">En cours</span></td></tr>
+                    <tr><td>Aïcha Kpadonou</td><td>Permis B</td><td class="num">18/20</td><td class="num"><span class="mini-bar"><i style="width:60%"></i></span>12 h</td><td><span class="st ready">Prête</span></td></tr>
+                    <tr><td>Sènan Ahouansou</td><td>Permis A</td><td class="num">17/20</td><td class="num"><span class="mini-bar"><i style="width:90%"></i></span>9 h</td><td><span class="st ready">Prêt</span></td></tr>
+                    <tr><td>Fifamè Agossou</td><td>Permis B</td><td class="num">13/20</td><td class="num"><span class="mini-bar"><i style="width:30%"></i></span>6 h</td><td><span class="st work">En cours</span></td></tr>
+                    <tr><td>Mariam Bio Sika</td><td>Permis B</td><td class="num">15/20</td><td class="num"><span class="mini-bar"><i style="width:45%"></i></span>9 h</td><td><span class="st late">Échéance due</span></td></tr>
+                    <tr><td>Koffi Dossou</td><td>Code seul</td><td class="num">11/20</td><td class="num">—</td><td><span class="st work">En cours</span></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -599,7 +758,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="t-faq">
+  <section class="sec alt" aria-labelledby="t-faq">
     <div class="c faq-grid">
       <div>
         
@@ -610,19 +769,19 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
         </div>
       </div>
       <div class="faq">
-        <details open><summary>L'examen officiel se passe-t-il aussi en ligne ?</summary><p>Non. Les révisions et les examens blancs se font dans l'application. L'examen officiel du code et de la conduite a lieu dans un centre agréé. L'auto-école s'occupe de ton inscription et t'y accompagne.</p></details>
-        <details><summary>L'application consomme-t-elle beaucoup de données ?</summary><p>Une série de 40 questions pèse environ 2 Mo. Tu peux aussi télécharger des séries en Wi-Fi et les faire ensuite sans connexion.</p></details>
+        <details open><summary>Comment se passe l'examen du code au Bénin ?</summary><p>L'épreuve se passe sur l'application e-codepermis de l'ANaTT. Les questions sont lues à voix haute et le résultat s'affiche tout de suite. Il faut 14 sur 20 pour réussir. Le mode examen du simulateur reprend ce déroulé.</p></details>
+        <details><summary>Qu'est-ce qui change avec la réforme de 2026 ?</summary><p>La réforme du permis prévoit un volume minimum de cours théoriques et pratiques en auto-école avant chaque examen, et une barre de 14/20. Le nouveau Code de la route, voté en octobre 2026, renforce aussi les règles sur le casque et la ceinture. Ton moniteur te dit ce qui s'applique à ton dossier.</p></details>
+        <details><summary>L'application marche-t-elle sur iPhone et sans internet ?</summary><p>Oui. Elle s'ouvre dans le navigateur et s'installe sur l'écran d'accueil, sur Android comme sur iPhone. Une fois les séries téléchargées en Wi-Fi, tu révises sans connexion ; tes notes se synchronisent au retour du réseau.</p></details>
         <details><summary>Quels documents dois-je fournir ?</summary><p>Une pièce d'identité valide, des photos d'identité et un certificat médical. Tout s'envoie en photo depuis le téléphone. La liste exacte s'affiche à l'inscription.</p></details>
-        <details><summary>À partir de quel âge puis-je commencer ?</summary><p>Tu peux réviser le code à tout âge. L'âge minimum pour passer l'examen dépend de la catégorie de permis ; ton moniteur te le confirme à l'inscription.</p></details>
-        <details><summary>Et si j'échoue à l'examen ?</summary><p>Ton accès au code reste ouvert. On te propose des heures de conduite supplémentaires sur les points relevés par l'examinateur.</p></details>
+        <details><summary>Et si j'échoue à l'examen ?</summary><p>Ton accès au code reste ouvert. Le simulateur te repropose les thèmes où tu as fait des erreurs, et ton moniteur te réinscrit à la session suivante.</p></details>
       </div>
     </div>
   </section>
 
   <section class="cta">
     <div class="c">
-      <div><h2>Commence le code en ligne ce soir</h2><p>L'inscription se fait depuis ton téléphone. La série d'essai est gratuite.</p></div>
-      <a class="btn" href="#code">Faire un test gratuit</a>
+      <div><h2>Fais ton premier examen blanc ce soir</h2><p>Il est gratuit et sans inscription. Tu sauras où tu en es par rapport à la barre des 14/20.</p></div>
+      <a class="btn" href="#code">Faire un examen blanc</a>
     </div>
   </section>
 </main>
@@ -638,7 +797,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
         <p class="about">Auto-école à Cotonou. Code de la route en ligne et leçons de conduite pour les permis A et B.</p>
         <div class="stores"><span class="store">Bientôt sur<b>Android</b></span><span class="store">Bientôt sur<b>iPhone</b></span></div>
       </div>
-      <div><h4>Formations</h4><ul><li><a href="#code">Code en ligne</a></li><li><a href="#tarifs">Permis B</a></li><li><a href="#tarifs">Permis A</a></li><li><a href="#conduite">Heures de conduite</a></li></ul></div>
+      <div><h4>Formations</h4><ul><li><a href="#code">Simulateur du code</a></li><li><a href="#langues">Langues</a></li><li><a href="#tarifs">Permis B</a></li><li><a href="#tarifs">Permis A</a></li><li><a href="#conduite">Heures de conduite</a></li></ul></div>
       <div><h4>Agences</h4><ul><li>Cotonou · Étoile Rouge</li><li>Cotonou · Akpakpa</li><li>Abomey-Calavi</li><li>Porto-Novo</li></ul></div>
       <div><h4>Aide</h4><ul><li><a href="#t-faq">Questions fréquentes</a></li><li><a href="#ecoles">Espace moniteur</a></li><li>Conditions générales</li><li>Confidentialité</li></ul></div>
     </div>
@@ -718,6 +877,28 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
       <rect x="54" y="42" width="20" height="42" rx="7" fill="#d06f2b"/><circle cx="62" cy="28" r="13" fill="#5b3a29"/></g></svg>`
   };
 
+  /* ---------- Voix ---------- */
+  const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+  let voice = null;
+  const pickVoice = () => { if (!synth) return; const v = synth.getVoices(); voice = v.find(x => /^fr(-|_)?/i.test(x.lang) && /BJ|FR/i.test(x.lang)) || v.find(x => /^fr/i.test(x.lang)) || null; };
+  if (synth) { pickVoice(); synth.addEventListener?.('voiceschanged', pickVoice); }
+  const canSpeak = () => !!synth && !!voice;
+  function speak(text, done) {
+    if (!synth) { done && done(false); return; }
+    try {
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      if (voice) u.voice = voice;
+      u.lang = voice ? voice.lang : 'fr-FR'; u.rate = 0.95;
+      let fired = false; const end = ok => { if (!fired) { fired = true; done && done(ok); } };
+      u.onend = () => end(true); u.onerror = () => end(false);
+      synth.speak(u);
+      setTimeout(() => { if (!synth.speaking && !synth.pending) end(false); }, 1500);
+    } catch (e) { done && done(false); }
+  }
+  const stopSpeak = () => { try { synth && synth.cancel(); } catch (e) {} };
+  const readOut = it => it.q + ' ' + it.a.map((t, k) => 'Réponse ' + 'ABCD'[k] + ' : ' + t + '.').join(' ');
+
   /* ---------- Questions ---------- */
   const Q = [
     { img: { sign: 'stop' }, q: 'Arrivé à ce panneau, aucun véhicule ne vient. Je dois :', a: ['Passer sans m\'arrêter', 'M\'arrêter complètement à la ligne', 'Céder le passage aux véhicules qui arrivent', 'Klaxonner avant de passer'], c: [1, 2], e: 'Le STOP impose un arrêt complet à la ligne, même si la voie paraît libre. Ensuite, on cède le passage à tous les véhicules.' },
@@ -731,45 +912,66 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   ];
   const ICON_OK = '<svg viewBox="0 0 18 18" aria-label="Juste"><circle cx="9" cy="9" r="8" fill="#3fbf86"/><path d="M5.5 9.2l2.3 2.3 4.7-5" fill="none" stroke="#04130c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const ICON_KO = '<svg viewBox="0 0 18 18" aria-label="Faux"><circle cx="9" cy="9" r="8" fill="#f0565d"/><path d="M6.2 6.2l5.6 5.6M11.8 6.2l-5.6 5.6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+  const SPK = '<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 7h3l4-3v10l-4-3H2z" fill="currentColor"/><path d="M12 6a4 4 0 010 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  const WAVE = '<span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span>';
   const DUR = 20, L = 'ABCD';
   const box = document.getElementById('exam');
-  let i = 0, sel = new Set(), left = DUR, timer = null, done = false, results = [];
+  let mode = 'train', i = 0, sel = new Set(), left = DUR, timer = null, done = false, results = [], listening = false;
 
   const clock = () => { const C = 2 * Math.PI * 22, p = left / DUR; return `<svg class="clock" viewBox="0 0 52 52" aria-label="${left} secondes restantes"><circle cx="26" cy="26" r="22" fill="rgba(0,0,0,.55)"/><circle cx="26" cy="26" r="22" fill="none" stroke="${left <= 5 ? '#f0565d' : '#f2c230'}" stroke-width="4" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - p)}" transform="rotate(-90 26 26)" stroke-linecap="round"/><text x="26" y="31" text-anchor="middle">${left}</text></svg>`; };
   const visual = it => it.img.sign ? `<span class="pole"></span>` + SIGNS[it.img.sign].replace('<svg ', '<svg class="sign" aria-hidden="true" ') : SCENES[it.img.scene];
+  const top = (label) => `<div class="exam-top"><div class="modes" role="group" aria-label="Mode"><button type="button" class="mode" data-m="train" aria-pressed="${mode === 'train'}">Entraînement</button><button type="button" class="mode" data-m="exam" aria-pressed="${mode === 'exam'}">Examen</button></div><span class="t">${label}</span><span class="bar"><span style="width:${(Math.min(i, Q.length) / Q.length) * 100}%"></span></span></div>`;
+  box.addEventListener('click', e => { const m = e.target.closest('.mode'); if (!m || m.dataset.m === mode) return; mode = m.dataset.m; restart(); });
 
   function render() {
-    const it = Q[i];
-    box.innerHTML = `
-      <div class="exam-top"><span class="t">Q ${String(i + 1).padStart(2, '0')}/${String(Q.length).padStart(2, '0')}</span><span class="bar"><span style="width:${(i / Q.length) * 100}%"></span></span><span class="serie">Série d'essai</span></div>
+    const it = Q[i], exam = mode === 'exam';
+    const showText = !exam || !canSpeak();
+    box.innerHTML = top(`Q ${String(i + 1).padStart(2, '0')}/${String(Q.length).padStart(2, '0')}`) + `
       <div class="exam-scene">
         <div class="scene-img">${visual(it)}<span id="clock">${clock()}</span></div>
         <div class="qa">
-          <p class="q">${it.q}</p>
-          <p class="hint">Une ou plusieurs bonnes réponses</p>
-          <div class="opts">${it.a.map((t, k) => `<button type="button" class="opt" data-k="${k}" aria-pressed="false"><span class="k">${L[k]}</span><span>${t}</span></button>`).join('')}</div>
+          ${exam && canSpeak() ? `<p class="q">Écoute la question.</p><p class="exam-note">Elle est lue une seule fois. Rien n'est écrit, comme à l'examen.</p>` : `<p class="q">${it.q}</p>`}
+          ${exam && !canSpeak() ? `<p class="exam-note">La lecture à voix haute n'est pas disponible sur cet appareil : le texte s'affiche à la place.</p>` : ''}
+          <button type="button" class="listen" id="listen" ${exam ? 'disabled' : ''}>${SPK}<span>${exam ? 'Lecture en cours' : 'Écouter'}</span>${WAVE}</button>
+          ${showText && !exam ? '<p class="hint">Une ou plusieurs bonnes réponses</p>' : ''}
+          ${showText
+            ? `<div class="opts">${it.a.map((t, k) => `<button type="button" class="opt" data-k="${k}" aria-pressed="false"><span class="k">${L[k]}</span><span>${t}</span></button>`).join('')}</div>`
+            : `<div class="cards">${it.a.map((_, k) => `<button type="button" class="card opt" data-k="${k}" aria-pressed="false" aria-label="Réponse ${L[k]}">${L[k]}</button>`).join('')}</div>`}
           <div id="corr"></div>
           <div class="row"><button type="button" class="btn-exam clr" id="clr">Effacer</button><button type="button" class="btn-exam val" id="val" disabled>Valider</button></div>
         </div>
       </div>`;
+    if (!canSpeak()) box.querySelector('#listen').hidden = true;
     box.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => toggle(+b.dataset.k)));
     box.querySelector('#clr').addEventListener('click', () => { if (done) return; sel.clear(); sync(); });
     box.querySelector('#val').addEventListener('click', () => done ? next() : validate());
+    box.querySelector('#listen').addEventListener('click', () => { if (mode === 'train') listen(it); });
+  }
+  function listen(it, after) {
+    const b = box.querySelector('#listen'); if (!b) return after && after();
+    b.classList.add('on'); listening = true;
+    speak(readOut(it), () => { listening = false; const bb = box.querySelector('#listen'); if (bb) { bb.classList.remove('on'); if (mode === 'exam') bb.querySelector('span').textContent = 'Question lue'; } after && after(); });
   }
   function sync() {
     box.querySelectorAll('.opt').forEach(b => b.setAttribute('aria-pressed', sel.has(+b.dataset.k)));
     if (!done) box.querySelector('#val').disabled = sel.size === 0;
   }
   function toggle(k) { if (done || k >= Q[i].a.length) return; sel.has(k) ? sel.delete(k) : sel.add(k); sync(); }
-  function start() {
-    clearInterval(timer); sel = new Set(); left = DUR; done = false; render();
+  function startClock() {
+    clearInterval(timer);
     timer = setInterval(() => { left = Math.max(0, left - 1); const c = box.querySelector('#clock'); if (c) c.innerHTML = clock(); if (left === 0) validate(); }, 1000);
   }
+  function start() {
+    clearInterval(timer); stopSpeak(); sel = new Set(); left = DUR; done = false; render();
+    if (mode === 'exam' && canSpeak()) listen(Q[i], startClock); else startClock();
+  }
+  function restart() { i = 0; results = []; start(); }
   function validate() {
-    if (done) return; done = true; clearInterval(timer);
+    if (done) return; done = true; clearInterval(timer); stopSpeak();
     const it = Q[i];
     const good = sel.size === it.c.length && it.c.every(k => sel.has(k));
-    results[i] = good;
+    results[i] = { good, sel: [...sel] };
+    if (mode === 'exam') { next(); return; }
     box.querySelectorAll('.opt').forEach(b => {
       const k = +b.dataset.k; b.disabled = true;
       if (it.c.includes(k)) b.classList.add('right'); else if (sel.has(k)) b.classList.add('wrong');
@@ -781,17 +983,20 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   }
   function next() { i++; i < Q.length ? start() : finish(); }
   function finish() {
-    const score = results.filter(Boolean).length, ok = score >= 7;
-    box.innerHTML = `
-      <div class="exam-top"><span class="t">Résultat</span><span class="bar"><span style="width:100%"></span></span><span class="serie">Série d'essai</span></div>
+    const score = results.filter(r => r.good).length;
+    const on20 = Math.round(score / Q.length * 20), ok = on20 >= 14;
+    box.innerHTML = top(mode === 'exam' ? 'Résultat de l\'examen' : 'Résultat') + `
       <div class="exam-scene"><div class="end">
-        <div><div class="score">${score}<small>/${Q.length}</small></div>
-          <span class="verdict" style="background:${ok ? '#3fbf86' : '#f2c230'};color:#06140e">${ok ? 'Très bon niveau' : 'À retravailler'}</span>
-          <p style="margin-top:16px;opacity:.8">Une vraie série compte 40 questions. Dans l'application, tes erreurs reviennent automatiquement dans les séries suivantes.</p>
-          <div style="margin-top:18px"><button type="button" class="btn-exam val" id="again">Refaire la série</button></div></div>
-        <ol>${Q.map((q, k) => `<li>${results[k] ? ICON_OK : ICON_KO}<span>${q.q}</span></li>`).join('')}</ol>
+        <div><div class="score">${on20}<small>/20</small></div>
+          <span class="verdict" style="background:${ok ? '#3fbf86' : '#f2c230'};color:#06140e">${ok ? 'Reçu : 14/20 atteint' : 'Pas encore : il faut 14/20'}</span>
+          <div class="bar20" aria-hidden="true"><span style="width:${on20 * 5}%;background:${ok ? '#3fbf86' : '#f2c230'}"></span><b style="left:70%"></b></div>
+          <div class="bar20-legend"><span>0</span><span>barre 14</span><span>20</span></div>
+          <p style="margin-top:16px;opacity:.8">${score} bonne${score > 1 ? 's' : ''} réponse${score > 1 ? 's' : ''} sur ${Q.length}, ramené sur 20. Le vrai examen compte 20 questions.</p>
+          <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-exam val" id="again">Refaire la série</button>${mode === 'train' ? '<button type="button" class="btn-exam clr" id="to-exam">Passer en mode examen</button>' : ''}</div></div>
+        <ol>${Q.map((q, k) => `<li>${results[k] && results[k].good ? ICON_OK : ICON_KO}<span>${q.q}<small>Réponse ${q.c.map(c => L[c]).join(' et ')} : ${q.c.map(c => q.a[c]).join(' ; ')}</small></span></li>`).join('')}</ol>
       </div></div>`;
-    box.querySelector('#again').addEventListener('click', () => { i = 0; results = []; start(); });
+    box.querySelector('#again').addEventListener('click', restart);
+    const te = box.querySelector('#to-exam'); if (te) te.addEventListener('click', () => { mode = 'exam'; restart(); });
   }
   document.addEventListener('keydown', e => {
     if (!box.querySelector('.opt') || e.ctrlKey || e.metaKey || e.altKey) return;
@@ -807,6 +1012,13 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     const io = new IntersectionObserver(es => { if (!started && es[0].isIntersecting) { started = true; start(); io.disconnect(); } }, { threshold: .5 });
     io.observe(box);
   } else start();
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpeak(); });
+
+  const sayBtn = document.getElementById('say-demo');
+  if (sayBtn) {
+    if (!synth) sayBtn.hidden = true;
+    sayBtn.addEventListener('click', () => { pickVoice(); speak(readOut(Q[0])); });
+  }
 
   /* ---------- Réservation ---------- */
   const DAYS = [['jeu', 14, 'Jeudi'], ['ven', 15, 'Vendredi'], ['sam', 16, 'Samedi'], ['lun', 18, 'Lundi'], ['mar', 19, 'Mardi']];

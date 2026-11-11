@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b6b46">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Volant Bénin">
+<meta property="og:title" content="Volant Bénin">
+<meta property="og:description" content="Auto-école à Cotonou : le code de la route sur ton téléphone, avec les questions lues à voix haute.">
+<meta property="og:type" content="website">
+<title>Volant Bénin</title>
+<meta name="description" content="Auto-école Volant Bénin : code de la route en ligne, leçons de conduite à Cotonou, Abomey-Calavi, Porto-Novo et Parakou.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Mise en page : site d'agence sobre, grille 12 colonnes, la signalisation routière comme seul langage graphique */
+:root {
+  --paper: #ffffff;
+  --paper-2: #f3f4f1;
+  --ink: #12201a;
+  --ink-2: #47554f;
+  --rule: #dfe3dd;
+  --green: #0b6b46;
+  --green-ink: #ffffff;
+  --green-tint: #e5f1eb;
+  --yellow: #f2c230;
+  --red: #c8202a;
+  --red-tint: #f8e4e4;
+  --blue: #0d4fa0;
+  --night: #0f1915;
+  --night-ink: #eef2ee;
+  --night-2: #1a2621;
+  --f-display: "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif;
+  --f-text: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121a17; --paper-2: #18221e; --ink: #e8ece8; --ink-2: #a3b0aa; --rule: #2a3631;
+    --green: #2fa774; --green-ink: #06140e; --green-tint: #15302a; --yellow: #f2c230; --red: #f0565d; --red-tint: #3a1c1e; --blue: #5d97e6;
+    --night: #0a100d; --night-ink: #eef2ee; --night-2: #141e1a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121a17; --paper-2: #18221e; --ink: #e8ece8; --ink-2: #a3b0aa; --rule: #2a3631;
+  --green: #2fa774; --green-ink: #06140e; --green-tint: #15302a; --yellow: #f2c230; --red: #f0565d; --red-tint: #3a1c1e; --blue: #5d97e6;
+  --night: #0a100d; --night-ink: #eef2ee; --night-2: #141e1a;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; caret-color: var(--green); }
+html { scrollbar-color: color-mix(in srgb, var(--ink-2) 55%, transparent) var(--paper-2); accent-color: var(--green); }
+::selection { background: var(--yellow); color: #1b1600; }
+a { text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--night); }
+.c { max-width: 1180px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3, h4 { font-family: var(--f-display); margin: 0; text-wrap: balance; letter-spacing: -0.005em; }
+h2 { font-size: clamp(2rem, 3.6vw, 2.75rem); font-weight: 700; line-height: 1.05; }
+h3 { font-size: 1.35rem; font-weight: 700; line-height: 1.15; }
+p { margin: 0; }
+a { color: inherit; }
+.muted { color: var(--ink-2); }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+.btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; padding: 13px 22px; border-radius: 4px; border: 1.5px solid transparent; text-decoration: none; cursor: pointer; transition: background-color 160ms ease, border-color 160ms ease, transform 140ms var(--ease-out); line-height: 1.1; }
+.btn:active, .btn-exam:active, .filter:active, .day:active, .slot:active:not(:disabled), .opt:active:not(:disabled) { transform: scale(0.97); }
+.btn svg { transition: transform 200ms var(--ease-out); }
+.btn-exam, .filter, .day, .slot, .opt { transition: transform 140ms var(--ease-out), border-color 160ms ease, background-color 160ms ease; }
+.btn-primary { background: var(--green); color: var(--green-ink); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { background: color-mix(in srgb, var(--green) 85%, #000); }
+  .btn:hover svg { transform: translateX(3px); }
+  .btn-line:hover { border-color: var(--ink); }
+  .nav a:hover { color: var(--ink); background-size: 100% 1.5px; }
+  .sign-card:hover svg { transform: translateY(-2px); }
+  .agency:hover h3 { color: var(--green); }
+}
+.btn-line { border-color: var(--rule); color: var(--ink); background: var(--paper); }
+.btn svg { width: 16px; height: 16px; flex: none; }
+
+/* Barre d'infos */
+.util { background: var(--night); color: var(--night-ink); font-size: .82rem; }
+.util .c { display: flex; justify-content: space-between; gap: 16px; padding-block: 7px; flex-wrap: wrap; }
+.util span { opacity: .82; }
+.util .proto { color: var(--yellow); opacity: 1; font-weight: 600; }
+@media (max-width: 700px) { .util .hide-s { display: none; } }
+
+/* En-tête */
+.head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid var(--rule); }
+.head .c { display: flex; align-items: center; gap: 32px; padding-block: 14px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: none; }
+.logo svg { width: 38px; height: 38px; }
+.logo b { font-family: var(--f-display); font-size: 1.45rem; font-weight: 800; letter-spacing: -.01em; line-height: 1; display: block; }
+.logo small { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-top: 3px; }
+.nav { display: flex; gap: 26px; font-size: .95rem; font-weight: 500; margin-left: 8px; }
+.nav a { text-decoration: none; color: var(--ink-2); padding-block: 6px; background: linear-gradient(currentColor, currentColor) left bottom / 0 1.5px no-repeat; transition: background-size 220ms var(--ease-out), color 160ms ease; }
+.head .right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+.head .btn { padding: 10px 16px; font-size: .98rem; }
+@media (max-width: 1000px) { .nav, .head .login { display: none; } }
+@media (max-width: 420px) { .logo small { display: none; } .head .c { gap: 12px; } }
+
+/* Hero */
+.hero { border-bottom: 1px solid var(--rule); background: linear-gradient(var(--paper-2), var(--paper-2)) right / 36% 100% no-repeat, var(--paper); }
+.hero .c { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: center; padding-block: 64px 60px; }
+.hero h1 { font-size: clamp(2.5rem, 5.2vw, 4.3rem); font-weight: 800; line-height: .98; letter-spacing: -.02em; }
+.hero h1 em { font-style: normal; color: var(--green); }
+.hero .where { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: .92rem; color: var(--ink-2); }
+.hero .where b { color: var(--ink); font-weight: 600; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } }
+@keyframes lift { from { opacity: 0; transform: translateY(40px) rotate(-2deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] > * { animation: rise 700ms var(--ease-out) both; }
+  [data-enter] > :nth-child(2) { animation-delay: 70ms; } [data-enter] > :nth-child(3) { animation-delay: 140ms; } [data-enter] > :nth-child(4) { animation-delay: 210ms; }
+  .device .phone { animation: lift 900ms 120ms var(--ease-out) both; }
+  .float-card { animation: rise 600ms 650ms var(--ease-out) both; }
+}
+.hero h1 .soft { color: var(--ink-2); font-weight: 600; }
+.hero .intro { font-size: 1.15rem; color: var(--ink-2); max-width: 34em; margin-top: 22px; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+@media (max-width: 900px) {
+  .hero { background: var(--paper); }
+  .hero .c { grid-template-columns: 1fr; padding-block: 40px 56px; gap: 48px; }
+}
+
+/* Téléphone */
+.device { justify-self: center; position: relative; width: min(290px, 100%); max-width: 100%; }
+.phone { aspect-ratio: 9 / 19; width: 100%; max-width: 100%; background: #0c0f0e; border-radius: 42px; padding: 10px; box-shadow: 0 1px 0 #3b4541 inset, 0 40px 70px -30px rgba(10,30,20,.55), 0 12px 24px -12px rgba(10,30,20,.3); }
+.scr { position: relative; height: 100%; border-radius: 33px; overflow: hidden; background: #f6f7f5; color: #12201a; display: flex; flex-direction: column; }
+.sb { position: relative; display: flex; justify-content: space-between; align-items: center; padding: 12px 22px 6px; font-size: 11px; font-weight: 600; }
+.sb .notch { position: absolute; left: 50%; top: 8px; transform: translateX(-50%); width: 84px; height: 22px; background: #0c0f0e; border-radius: 12px; }
+.sb .sig { display: flex; gap: 5px; align-items: center; }
+.app { padding: 8px 14px 14px; display: flex; flex-direction: column; gap: 10px; flex: 1; font-size: 12px; }
+.app .hi { display: flex; justify-content: space-between; align-items: center; }
+.app .hi b { font-size: 18px; font-family: var(--f-display); font-weight: 700; display: block; line-height: 1.1; }
+.app .avatar { width: 32px; height: 32px; border-radius: 50%; background: #0b6b46; color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 12px; }
+.app .ready { background: #0b6b46; color: #fff; border-radius: 16px; padding: 12px; display: grid; grid-template-columns: 60px 1fr; gap: 12px; align-items: center; }
+.app .ready svg { width: 60px; height: 60px; }
+.app .ready b { font-family: var(--f-display); font-size: 15px; display: block; }
+.app .ready span { opacity: .85; font-size: 11px; line-height: 1.35; display: block; }
+.app .tile { background: #fff; border: 1px solid #e2e6e1; border-radius: 14px; padding: 10px 12px; display: flex; gap: 10px; align-items: center; }
+.app .tile svg { width: 32px; height: 32px; flex: none; }
+.app .tile b { display: block; font-size: 12px; line-height: 1.3; }
+.app .tile span { color: #5b6862; font-size: 10.5px; }
+.app .tile .go { margin-left: auto; width: 14px; height: 14px; flex: none; }
+.app .tabs { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid #e2e6e1; padding-top: 8px; text-align: center; font-size: 9.5px; color: #75817b; }
+.app .tabs i { display: block; width: 18px; height: 18px; margin: 0 auto 2px; border-radius: 5px; background: #d8ddd8; }
+.app .tabs .on { color: #0b6b46; font-weight: 700; }
+.app .tabs .on i { background: #0b6b46; }
+.float-card { position: absolute; left: -70px; bottom: 76px; background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 14px; font-size: .82rem; line-height: 1.35; box-shadow: 0 14px 30px -14px rgba(0,0,0,.35); display: flex; gap: 10px; align-items: center; }
+.float-card .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px var(--green-tint); flex: none; }
+@media (max-width: 1100px) { .float-card { left: -24px; } }
+@media (max-width: 560px) { .float-card { left: 8px; right: 8px; bottom: -22px; justify-content: center; } }
+
+/* Sections */
+.sec { padding-block: 96px; }
+.sec.alt { background: var(--paper-2); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px 64px; align-items: end; margin-bottom: 48px; }
+.sec-head p { color: var(--ink-2); font-size: 1.06rem; max-width: 36em; }
+@media (max-width: 860px) { .sec { padding-block: 64px; } .sec-head { grid-template-columns: 1fr; margin-bottom: 32px; } }
+
+/* Parcours */
+.path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--ink); margin: 0; padding: 0; }
+.path li { list-style: none; padding: 22px 24px 8px 0; display: grid; gap: 10px; align-content: start; }
+.path li + li { padding-left: 24px; border-left: 1px solid var(--rule); }
+.path .when { font-size: .82rem; font-weight: 600; color: var(--green); }
+.path p { color: var(--ink-2); font-size: .95rem; }
+@media (max-width: 900px) { .path { grid-template-columns: 1fr 1fr; } .path li:nth-child(3) { border-left: 0; padding-left: 0; } .path li:nth-child(n+3) { border-top: 1px solid var(--rule); } }
+@media (max-width: 540px) { .path { grid-template-columns: 1fr; } .path li + li { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); } }
+
+/* Simulateur d'examen */
+.exam-wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 56px; align-items: start; }
+.exam-wrap aside { display: grid; gap: 22px; position: sticky; top: 100px; }
+.exam-wrap aside p { color: var(--ink-2); }
+.keys-legend { display: grid; gap: 10px; font-size: .92rem; color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 18px; }
+.keys-legend div { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.kbd { font-family: var(--f-mono); font-size: .75rem; border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; background: var(--paper); color: var(--ink); }
+.exam { background: var(--night); color: var(--night-ink); border-radius: 10px; overflow: hidden; box-shadow: 0 30px 60px -36px rgba(0,0,0,.6); }
+.exam-top { display: flex; align-items: center; gap: 16px; padding: 12px 18px; background: var(--night-2); font-size: .82rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+.exam-top .t { font-family: var(--f-mono); color: var(--yellow); }
+.exam-top .serie { opacity: .7; }
+.exam-top .bar { flex: 1; height: 4px; background: rgba(255,255,255,.12); border-radius: 4px; overflow: hidden; }
+.exam-top .bar span { display: block; height: 100%; background: var(--yellow); transition: width .3s; }
+.exam-scene { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 400px; }
+.scene-img { background: #26332e; display: grid; place-items: center; position: relative; padding: 24px; min-height: 260px; overflow: hidden; }
+.scene-img svg.sign { width: min(180px, 64%); height: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,.4)); position: relative; }
+.scene-img svg.full { position: absolute; inset: 0; width: 100%; height: 100%; }
+.scene-img .pole { position: absolute; left: 50%; bottom: 0; width: 10px; height: 45%; background: #8c9691; transform: translateX(-50%); }
+.scene-img #clock { position: absolute; right: 14px; top: 14px; }
+.scene-img .clock { width: 52px; height: 52px; display: block; }
+.scene-img .clock text { font-family: var(--f-mono); font-size: 15px; fill: #fff; }
+.qa { padding: 26px 26px 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.qa .q { font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+.qa .hint { font-size: .8rem; opacity: .6; margin-top: -6px; }
+.opts { display: grid; gap: 8px; }
+.opt { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; width: 100%; text-align: left; font: inherit; font-size: .97rem; line-height: 1.35; color: inherit; background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.12); border-radius: 6px; padding: 9px 12px; cursor: pointer; }
+.opt .k { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 5px; background: rgba(255,255,255,.1); font-family: var(--f-display); font-weight: 800; font-size: 1.1rem; }
+.opt:hover:not(:disabled) { border-color: rgba(255,255,255,.4); }
+.opt[aria-pressed="true"] { border-color: var(--yellow); background: rgba(242,194,48,.1); }
+.opt[aria-pressed="true"] .k { background: var(--yellow); color: #1b1600; }
+.opt.right { border-color: #3fbf86; background: rgba(63,191,134,.14); }
+.opt.right .k { background: #3fbf86; color: #04130c; }
+.opt.wrong { border-color: #f0565d; background: rgba(240,86,93,.14); }
+.opt.wrong .k { background: #f0565d; color: #fff; }
+.opt:disabled { cursor: default; }
+.qa .row { display: flex; gap: 10px; margin-top: auto; justify-content: flex-end; align-items: center; flex-wrap: wrap; }
+.btn-exam { font-family: var(--f-display); font-weight: 700; font-size: 1rem; padding: 10px 18px; border-radius: 5px; border: 0; cursor: pointer; }
+.btn-exam.val { background: var(--yellow); color: #1b1600; }
+.btn-exam.val:disabled { opacity: .35; cursor: not-allowed; }
+.btn-exam.clr { background: transparent; color: inherit; border: 1.5px solid rgba(255,255,255,.2); }
+.corr { font-size: .92rem; line-height: 1.5; background: rgba(255,255,255,.06); border-radius: 6px; padding: 12px 14px; }
+.corr b { color: var(--yellow); font-family: var(--f-display); font-size: 1rem; }
+.end { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; padding: 34px; align-items: center; }
+.end .score { font-family: var(--f-display); font-size: 5.5rem; font-weight: 800; line-height: .9; font-variant-numeric: tabular-nums; }
+.end .score small { font-size: 2rem; opacity: .5; }
+.end .verdict { display: inline-block; margin-top: 10px; font-weight: 700; font-size: .85rem; padding: 4px 10px; border-radius: 4px; }
+.end ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: .9rem; }
+.end li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
+.end li svg { width: 18px; height: 18px; margin-top: 2px; }
+@media (max-width: 960px) { .exam-wrap { grid-template-columns: 1fr; gap: 28px; } .exam-wrap aside { position: static; } }
+@media (max-width: 640px) { .exam-scene { grid-template-columns: 1fr; } .scene-img { min-height: 210px; } .qa { padding: 20px 18px; } .end { grid-template-columns: 1fr; padding: 24px; } }
+
+/* Panneaux */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.filter { font: inherit; font-size: .9rem; font-weight: 600; padding: 8px 14px; border-radius: 4px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink-2); cursor: pointer; }
+.filter:hover { color: var(--ink); }
+.filter[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.filter .n { font-family: var(--f-mono); font-size: .75rem; opacity: .6; margin-left: 6px; }
+.signs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.sign-card { background: var(--paper); padding: 24px 14px 16px; display: grid; gap: 12px; justify-items: center; text-align: center; align-content: start; }
+.sign-card svg { width: 74px; height: 74px; transition: transform 220ms var(--ease-out); }
+.sign-card b { font-size: .9rem; line-height: 1.3; font-weight: 600; }
+.sign-card span { font-size: .72rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; }
+@media (max-width: 420px) { .signs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Conduite */
+.drive { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 56px; align-items: start; }
+.agencies { border-top: 2px solid var(--ink); }
+.agency { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 20px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.agency h3 { font-size: 1.2rem; transition: color 160ms ease; }
+.agency .addr { color: var(--ink-2); font-size: .93rem; grid-column: 1; }
+.agency .hrs { grid-row: 1 / span 2; grid-column: 2; text-align: right; font-size: .85rem; color: var(--ink-2); line-height: 1.5; font-variant-numeric: tabular-nums; }
+.agency .tag { display: inline-block; font-family: var(--f-text); font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--green); margin-left: 10px; vertical-align: 3px; }
+.book { border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); overflow: hidden; box-shadow: 0 24px 48px -36px rgba(0,0,0,.4); }
+.book header { padding: 18px 22px; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.book header span { font-size: .85rem; color: var(--ink-2); }
+.book form { padding: 22px; display: grid; gap: 18px; }
+.f { display: grid; gap: 6px; }
+.f label, .f .lbl { font-size: .85rem; font-weight: 600; }
+.f select { font: inherit; padding: 11px 12px; border: 1.5px solid var(--rule); border-radius: 5px; background: var(--paper); color: var(--ink); width: 100%; }
+.days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.day, .slot { font: inherit; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 5px; cursor: pointer; padding: 8px 4px; text-align: center; line-height: 1.2; }
+.day small { display: block; font-size: .7rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+.day b { font-family: var(--f-display); font-size: 1.25rem; }
+.slots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.slot { font-variant-numeric: tabular-nums; font-weight: 600; font-size: .92rem; }
+.day[aria-pressed="true"], .slot[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: var(--green-ink); }
+.day[aria-pressed="true"] small { color: inherit; opacity: .8; }
+.slot:disabled { color: var(--ink-2); opacity: .45; text-decoration: line-through; cursor: not-allowed; }
+.pays { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.pays label { border: 1.5px solid var(--rule); border-radius: 5px; padding: 9px 10px; font-size: .86rem; font-weight: 600; display: flex; gap: 8px; align-items: center; cursor: pointer; }
+.pays label:has(input:checked) { border-color: var(--green); background: var(--green-tint); }
+.pays input { accent-color: var(--green); margin: 0; }
+.book .total { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px dashed var(--rule); flex-wrap: wrap; }
+.book .total b { font-family: var(--f-display); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.book .btn { justify-content: center; }
+.ok-msg { background: var(--green-tint); color: var(--ink); padding: 12px 14px; font-size: .92rem; border-radius: 5px; display: grid; grid-template-columns: 20px 1fr; gap: 10px; }
+.ok-msg svg { width: 20px; height: 20px; margin-top: 1px; }
+@media (max-width: 960px) { .drive { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 480px) { .pays { grid-template-columns: 1fr; } .agency { grid-template-columns: 1fr; } .agency .hrs { grid-row: auto; grid-column: 1; text-align: left; } }
+
+/* Tarifs */
+.price-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px; align-items: start; }
+.table-scroll { overflow-x: auto; }
+table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-width: 540px; }
+.tarifs th, .tarifs td { text-align: left; padding: 16px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tarifs thead th { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); font-weight: 700; border-bottom: 2px solid var(--ink); }
+.tarifs td:last-child, .tarifs th:last-child { text-align: right; white-space: nowrap; }
+.tarifs td b { display: block; font-weight: 700; }
+.tarifs td span { color: var(--ink-2); font-size: .88rem; }
+.tarifs .amt { font-family: var(--f-display); font-weight: 700; font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+.tarifs .amt small { font-family: var(--f-text); font-size: .72rem; color: var(--ink-2); font-weight: 600; margin-left: 4px; }
+.tarifs tr.hl td { background: var(--green-tint); }
+.badge { display: inline-block; font-size: .66rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; background: var(--yellow); color: #1b1600; padding: 2px 7px; border-radius: 3px; margin-left: 8px; vertical-align: 2px; }
+.pay-note { background: var(--night); color: var(--night-ink); border-radius: 8px; padding: 26px; display: grid; gap: 16px; }
+.pay-note h3 { font-size: 1.35rem; }
+.pay-note p { opacity: .8; font-size: .95rem; }
+.split { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; text-align: center; }
+.split div { background: var(--night-2); border-radius: 5px; padding: 10px 4px; }
+.split small { display: block; font-size: .7rem; opacity: .65; line-height: 1.3; }
+.split b { font-family: var(--f-display); font-size: 1.2rem; font-variant-numeric: tabular-nums; }
+.wallets { display: flex; gap: 6px; flex-wrap: wrap; }
+.wallet { font-size: .78rem; font-weight: 600; padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,.18); }
+@media (max-width: 960px) { .price-grid { grid-template-columns: 1fr; } }
+
+/* Moniteurs */
+.pro-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 56px; align-items: center; }
+.pro-list { margin: 26px 0 0; padding: 0; list-style: none; display: grid; gap: 18px; }
+.pro-list li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; color: var(--ink-2); }
+.pro-list li svg { width: 22px; height: 22px; margin-top: 2px; }
+.pro-list b { color: var(--ink); display: block; }
+.laptop { border-radius: 10px; border: 1px solid var(--rule); background: var(--paper); box-shadow: 0 30px 60px -40px rgba(0,0,0,.45); overflow: hidden; }
+.laptop .chrome { display: flex; gap: 6px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--rule); background: var(--paper-2); }
+.laptop .chrome i { width: 10px; height: 10px; border-radius: 50%; background: var(--rule); }
+.laptop .chrome span { margin-left: 12px; font-family: var(--f-mono); font-size: .72rem; color: var(--ink-2); background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board { display: grid; grid-template-columns: 160px minmax(0, 1fr); min-height: 340px; }
+.board .side { border-right: 1px solid var(--rule); padding: 16px 12px; display: grid; align-content: start; gap: 2px; font-size: .85rem; }
+.board .side span { padding: 7px 10px; border-radius: 5px; color: var(--ink-2); }
+.board .side span.on { background: var(--green-tint); color: var(--green); font-weight: 700; }
+.board .main { padding: 18px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.board .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.board .stat { border: 1px solid var(--rule); border-radius: 6px; padding: 10px 12px; }
+.board .stat small { font-size: .72rem; color: var(--ink-2); display: block; line-height: 1.3; }
+.board .stat b { font-family: var(--f-display); font-size: 1.45rem; font-variant-numeric: tabular-nums; }
+.board .tw { overflow-x: auto; }
+.board table { width: 100%; border-collapse: collapse; font-size: .82rem; min-width: 470px; }
+.board th, .board td { text-align: left; padding: 8px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.board th { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 700; }
+.board td.num { font-variant-numeric: tabular-nums; }
+.st { font-size: .72rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
+.st.ready { background: var(--green-tint); color: var(--green); }
+.st.work { background: color-mix(in srgb, var(--yellow) 28%, var(--paper)); color: var(--ink); }
+.st.late { background: var(--red-tint); color: var(--red); }
+.mini-bar { display: inline-block; width: 56px; height: 6px; background: var(--rule); border-radius: 3px; vertical-align: middle; margin-right: 8px; overflow: hidden; }
+.mini-bar i { display: block; height: 100%; background: var(--green); }
+.sample { font-size: .8rem; color: var(--ink-2); margin-top: 10px; }
+@media (max-width: 960px) { .pro-grid { grid-template-columns: 1fr; gap: 36px; } }
+@media (max-width: 640px) { .board { grid-template-columns: 1fr; } .board .side { display: none; } }
+
+/* FAQ */
+.faq-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 56px; }
+.faq details { border-bottom: 1px solid var(--rule); }
+.faq details:first-child { border-top: 2px solid var(--ink); }
+.faq summary { list-style: none; cursor: pointer; padding: 20px 40px 20px 0; position: relative; font-weight: 600; font-size: 1.05rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 10px; height: 10px; border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2); transform: translateY(-70%) rotate(45deg); transition: transform .2s; }
+.faq details[open] summary::after { transform: translateY(-20%) rotate(-135deg); }
+.faq details p { padding: 0 0 20px; color: var(--ink-2); max-width: 60ch; }
+.contact-box { border: 1px solid var(--rule); border-radius: 8px; padding: 20px 22px; display: grid; gap: 6px; margin-top: 26px; }
+.contact-box .num { font-family: var(--f-display); font-size: 1.6rem; font-weight: 700; user-select: all; font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .faq-grid { grid-template-columns: 1fr; gap: 24px; } }
+
+/* Appel final */
+.cta { background: var(--green); color: var(--green-ink); }
+.cta .c { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center; padding-block: 56px; }
+.cta h2 { font-size: clamp(1.8rem, 3.2vw, 2.4rem); }
+.cta p { opacity: .85; margin-top: 8px; }
+.cta .btn { background: var(--yellow); color: #1b1600; }
+@media (max-width: 760px) { .cta .c { grid-template-columns: 1fr; } .cta .btn { justify-self: start; } }
+
+/* Pied */
+.foot { background: var(--night); color: var(--night-ink); font-size: .9rem; }
+.foot .cols { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-block: 56px 36px; }
+.foot h4 { font-family: var(--f-text); font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; opacity: .6; margin-bottom: 14px; font-weight: 700; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.foot li { opacity: .85; }
+.foot a { text-decoration: none; }
+.foot a:hover { text-decoration: underline; }
+.foot .logo small { color: inherit; opacity: .6; }
+.foot .about { opacity: .75; margin-top: 16px; max-width: 30em; }
+.foot .legal { border-top: 1px solid rgba(255,255,255,.1); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 20px; font-size: .8rem; opacity: .6; }
+.stores { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+.store { border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 6px 12px; font-size: .72rem; line-height: 1.2; }
+.store b { display: block; font-size: .95rem; }
+@media (max-width: 860px) { .foot .cols { grid-template-columns: 1fr 1fr; } .foot .cols > :first-child { grid-column: 1 / -1; } }
+/* Modes du simulateur */
+.modes { display: inline-flex; gap: 2px; background: rgba(255,255,255,.08); border-radius: 6px; padding: 3px; }
+.mode { font: inherit; font-size: .82rem; font-weight: 600; color: inherit; background: transparent; border: 0; border-radius: 4px; padding: 5px 12px; cursor: pointer; opacity: .7; transition: background-color 160ms ease, opacity 160ms ease; }
+.mode[aria-pressed="true"] { background: var(--yellow); color: #1b1600; opacity: 1; }
+.exam-top { flex-wrap: wrap; }
+.listen { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: .85rem; font-weight: 600; color: inherit; background: rgba(255,255,255,.08); border: 1.5px solid rgba(255,255,255,.16); border-radius: 999px; padding: 6px 12px 6px 8px; cursor: pointer; align-self: flex-start; }
+.listen svg { width: 18px; height: 18px; }
+.listen:disabled { opacity: .45; cursor: default; }
+.listen.on { border-color: var(--yellow); }
+.listen.on .wave i { animation: wave 900ms ease-in-out infinite; }
+.wave { display: inline-flex; gap: 2px; align-items: center; height: 14px; }
+.wave i { width: 3px; height: 100%; background: var(--yellow); border-radius: 2px; transform-origin: center; transform: scaleY(.35); }
+.wave i:nth-child(2) { animation-delay: 120ms !important; } .wave i:nth-child(3) { animation-delay: 240ms !important; } .wave i:nth-child(4) { animation-delay: 360ms !important; }
+@keyframes wave { 50% { transform: scaleY(1); } }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); gap: 10px; }
+.card { font-family: var(--f-display); font-weight: 800; font-size: 2rem; color: inherit; aspect-ratio: 1 / 1.15; max-width: 100%; border-radius: 8px; border: 2px solid rgba(255,255,255,.18); background: rgba(255,255,255,.05); cursor: pointer; transition: transform 140ms var(--ease-out), border-color 160ms ease, background-color 160ms ease; }
+.card[aria-pressed="true"] { background: var(--yellow); color: #1b1600; border-color: var(--yellow); }
+.card:active { transform: scale(0.96); }
+.exam-note { font-size: .82rem; opacity: .65; }
+.bar20 { position: relative; height: 12px; border-radius: 6px; background: rgba(255,255,255,.12); margin: 18px 0 6px; }
+.bar20 span { position: absolute; inset: 0 auto 0 0; border-radius: 6px; }
+.bar20 b { position: absolute; top: -6px; bottom: -6px; width: 2px; background: #fff; }
+.bar20-legend { position: relative; height: 1.2em; font-size: .75rem; opacity: .7; font-variant-numeric: tabular-nums; }
+.bar20-legend span { position: absolute; top: 0; }
+.bar20-legend span:nth-child(2) { left: 70%; transform: translateX(-50%); }
+.bar20-legend span:nth-child(3) { right: 0; }
+.end ol li span small { display: block; opacity: .7; font-size: .82rem; }
+
+/* Espace élève */
+.space { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px; }
+.panel { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 24px; min-width: 0; }
+.panel h3 { font-size: 1.15rem; }
+.panel .sub { color: var(--ink-2); font-size: .9rem; margin-top: 4px; }
+.avg { display: flex; align-items: baseline; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.avg b { font-family: var(--f-display); font-size: 3rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.avg span { color: var(--ink-2); }
+.chart { width: 100%; height: auto; margin-top: 10px; display: block; }
+.chart text { font-family: var(--f-text); font-size: 11px; fill: var(--ink-2); }
+.steps-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 0; }
+.steps-list li { display: grid; grid-template-columns: 24px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: .95rem; }
+.steps-list li:last-child { border-bottom: 0; }
+.steps-list svg { width: 22px; height: 22px; }
+.steps-list .meta { font-size: .82rem; color: var(--ink-2); font-variant-numeric: tabular-nums; text-align: right; }
+.steps-list .todo { color: var(--ink-2); }
+.weak { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.weak span { font-size: .8rem; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: var(--red-tint); color: var(--red); }
+@media (max-width: 900px) { .space { grid-template-columns: 1fr; } }
+
+/* Langues */
+.lang-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+.langs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.lang { background: var(--paper); padding: 16px; display: grid; gap: 2px; }
+.lang b { font-family: var(--f-display); font-size: 1.25rem; }
+.lang span { font-size: .8rem; color: var(--ink-2); }
+.lang .st { justify-self: start; margin-top: 8px; }
+.lang-grid .btn { margin-top: 24px; }
+@media (max-width: 900px) { .lang-grid { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 480px) { .langs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Comparatif */
+.compare { width: 100%; border-collapse: collapse; min-width: 640px; font-size: .95rem; }
+.compare th, .compare td { padding: 14px 12px; border-bottom: 1px solid var(--rule); text-align: center; vertical-align: middle; }
+.compare th:first-child, .compare td:first-child { text-align: left; }
+.compare thead th { font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); font-weight: 700; border-bottom: 2px solid var(--ink); }
+.compare thead th.us { color: var(--green); }
+.compare td.us { background: var(--green-tint); }
+.compare svg { width: 20px; height: 20px; vertical-align: middle; }
+.compare .part { font-size: .8rem; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="util">
+  <div class="c">
+    <span class="proto">Prototype de présentation · nom, contenus et tarifs à valider</span>
+    <span class="hide-s">Agence Étoile Rouge · lun – sam, 7 h 30 – 19 h</span>
+  </div>
+</div>
+
+<header class="head">
+  <div class="c">
+    <a class="logo" href="#top" aria-label="Volant Bénin, accueil">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="var(--green)"/><circle cx="20" cy="20" r="11.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="var(--yellow)"/><path d="M8.8 18.2 L17 19.4 M31.2 18.2 L23 19.4 M20 23 L20 31.3" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+      <span><b>Volant Bénin</b><small>Auto-école agréée</small></span>
+    </a>
+    <nav class="nav" aria-label="Menu">
+      <a href="#code">Simulateur</a>
+      <a href="#espace">Espace élève</a>
+      <a href="#langues">Langues</a>
+      <a href="#conduite">Conduite</a>
+      <a href="#tarifs">Tarifs</a>
+    </nav>
+    <div class="right">
+      <a class="btn btn-line login" href="#espace">Se connecter</a>
+      <a class="btn btn-primary" href="#tarifs">S'inscrire</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="c">
+      <div data-enter>
+        <h1>Auto-école à Cotonou, avec <em>le code de la route sur ton téléphone</em></h1>
+        <p class="intro">Tu révises sur ton téléphone avec les questions lues à voix haute, comme à l'épreuve e-codepermis. Tes leçons de conduite se réservent en ligne avec nos moniteurs. Quand tes examens blancs passent la barre des 14/20, on t'inscrit à l'examen.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#code">Faire un examen blanc gratuit
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-line" href="#tarifs">Voir les tarifs</a>
+        </div>
+        <p class="where"><span><b>Code en ligne</b> 5 000 FCFA les 3 mois</span><span><b>Permis B</b> payable en 3 fois</span><span><b>Android et iPhone</b>, même hors connexion</span></p>
+      </div>
+
+      <div class="device">
+        <div class="phone" aria-label="Aperçu de l'application élève" role="img">
+          <div class="scr">
+            <div class="sb"><span>18:42</span><span class="notch"></span><span class="sig">4G
+              <svg width="16" height="10" viewBox="0 0 16 10" aria-hidden="true"><rect x="0" y="7" width="3" height="3" fill="#12201a"/><rect x="4.3" y="5" width="3" height="5" fill="#12201a"/><rect x="8.6" y="2.5" width="3" height="7.5" fill="#12201a"/><rect x="12.9" y="0" width="3" height="10" fill="#12201a"/></svg>
+              <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><rect x=".5" y=".5" width="18" height="9" rx="2" fill="none" stroke="#12201a"/><rect x="2" y="2" width="12" height="6" rx="1" fill="#12201a"/><rect x="19.5" y="3" width="2" height="4" rx="1" fill="#12201a"/></svg></span></div>
+            <div class="app">
+              <div class="hi"><div><span style="color:#5b6862">Bonsoir</span><b>Aïcha</b></div><div class="avatar">AK</div></div>
+              <div class="ready">
+                <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="7"/><circle cx="32" cy="32" r="26" fill="none" stroke="#f2c230" stroke-width="7" stroke-linecap="round" stroke-dasharray="129 164" transform="rotate(-90 32 32)"/><text x="32" y="37.5" text-anchor="middle" font-size="16" font-weight="700" fill="#fff" font-family="Barlow Semi Condensed, Arial, sans-serif">15,8</text></svg>
+                <div><b>Au-dessus de la barre</b><span>Moyenne sur 20 · il faut 14 pour réussir</span></div>
+              </div>
+              <div class="tile">
+                <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#fdf3d3"/><polygon points="17,7 27,25 7,25" fill="#fff" stroke="#c8202a" stroke-width="2.6" stroke-linejoin="round"/></svg>
+                <div><b>Reprendre la série 12</b><span>Intersections · question 9 sur 20</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="tile">
+                <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#e5f1eb"/><rect x="9" y="10" width="16" height="15" rx="2" fill="none" stroke="#0b6b46" stroke-width="2"/><path d="M9 14h16M13 8v4M21 8v4" stroke="#0b6b46" stroke-width="2"/></svg>
+                <div><b>Conduite · jeu. 14 nov.</b><span>14 h · Étoile Rouge · Rodrigue</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="tile">
+                <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#e4ecf7"/><path d="M10 22l5-6 4 4 5-8" fill="none" stroke="#0d4fa0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div><b>Dernier examen blanc</b><span>17/20 · hier, 21 h 10</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="tile">
+                <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#fdf3d3"/><rect x="8" y="11" width="18" height="12" rx="2" fill="none" stroke="#8a6a00" stroke-width="2"/><path d="M8 15h18" stroke="#8a6a00" stroke-width="2"/></svg>
+                <div><b>Échéance 3 sur 3</b><span>50 000 FCFA · avant l'examen</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="tabs"><span class="on"><i></i>Accueil</span><span><i></i>Code</span><span><i></i>Conduite</span><span><i></i>Profil</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="float-card"><span class="dot"></span><span><b>Paiement reçu</b><br>55 000 FCFA via MTN MoMo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t-parcours">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-parcours">Le parcours, de l'inscription au permis</h2></div>
+        <p>Le dossier et les révisions se font en ligne. Tu te déplaces pour les cours en salle, les leçons de conduite et les deux examens.</p>
+      </div>
+      <ol class="path">
+        <li><span class="when">Inscription</span><h3>Le dossier en ligne</h3><p>Ton numéro de téléphone, une photo de ta pièce d'identité et ta photo d'identité. L'auto-école vérifie le dossier dans la journée.</p></li>
+        <li><span class="when">Code</span><h3>En salle et sur ton téléphone</h3><p>Les cours théoriques en salle, et les révisions dans l'application, avec les questions lues à voix haute.</p></li>
+        <li><span class="when">Examen du code</span><h3>Quand tu passes 14/20</h3><p>Dès que tes examens blancs passent la barre, on t'inscrit à l'épreuve sur e-codepermis.</p></li>
+        <li><span class="when">Conduite</span><h3>Leçons et examen pratique</h3><p>Sur plateau puis en circulation, avec un moniteur diplômé, jusqu'à l'examen de conduite.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec alt" id="code" aria-labelledby="t-code">
+    <div class="c exam-wrap">
+      <aside>
+        <div><h2 id="t-code">Le simulateur du code, réglé sur l'épreuve e-codepermis</h2></div>
+        <p>À l'examen de l'ANaTT, la question est lue à voix haute et il faut 14 sur 20 pour réussir. Le simulateur reprend ce déroulé, avec deux modes.</p>
+        <div class="keys-legend">
+          <div><b style="color:var(--ink)">Entraînement</b>&nbsp;: le texte est affiché, tu peux réécouter, la correction suit chaque question.</div>
+          <div><b style="color:var(--ink)">Examen</b>&nbsp;: la question est lue une seule fois, rien n'est écrit, le résultat arrive à la fin.</div>
+          <div><span class="kbd">A</span><span class="kbd">B</span><span class="kbd">C</span><span class="kbd">D</span>&nbsp;répondre&nbsp;·&nbsp;<span class="kbd">Entrée</span>&nbsp;valider</div>
+        </div>
+      </aside>
+      <div class="exam" id="exam" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="espace" aria-labelledby="t-space">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-space">L'espace élève : ta moyenne face à la barre des 14/20</h2></div>
+        <p>Chaque examen blanc compte. Tu vois ta moyenne, tes thèmes faibles et où en est ton dossier, du dépôt des pièces jusqu'à l'examen de conduite.</p>
+      </div>
+      <div class="space">
+        <div class="panel">
+          <h3>Examens blancs d'Aïcha</h3>
+          <p class="sub">10 derniers examens · 20 questions chacun</p>
+          <div class="avg"><b>15,8</b><span>sur 20 en moyenne sur les 5 derniers examens, tous à 14 ou plus</span></div>
+          <svg class="chart" viewBox="0 0 560 210" role="img" aria-label="Notes des 10 derniers examens blancs : 9, 11, 12, 11, 13, 15, 14, 16, 17 et 17 sur 20. Barre de réussite à 14.">
+            <g stroke="var(--rule)" stroke-width="1">
+              <line x1="40" y1="20" x2="550" y2="20"/><line x1="40" y1="70" x2="550" y2="70"/><line x1="40" y1="120" x2="550" y2="120"/><line x1="40" y1="170" x2="550" y2="170"/>
+            </g>
+            <text x="30" y="24" text-anchor="end">20</text><text x="30" y="74" text-anchor="end">15</text><text x="30" y="124" text-anchor="end">10</text><text x="30" y="174" text-anchor="end">5</text>
+            <line x1="40" y1="80" x2="550" y2="80" stroke="var(--red)" stroke-width="2" stroke-dasharray="6 5"/>
+            <text x="548" y="74" text-anchor="end" style="fill:var(--red);font-weight:700">14 / 20 : réussite</text>
+            <polygon fill="var(--green-tint)" points="50,180 50,130 105,110 160,100 215,110 270,90 325,70 380,80 435,60 490,50 545,50 545,180"/>
+            <polyline fill="none" stroke="var(--green)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="50,130 105,110 160,100 215,110 270,90 325,70 380,80 435,60 490,50 545,50"/>
+            <g fill="var(--paper)" stroke="var(--green)" stroke-width="2.5"><circle cx="50" cy="130" r="4"/><circle cx="105" cy="110" r="4"/><circle cx="160" cy="100" r="4"/><circle cx="215" cy="110" r="4"/><circle cx="270" cy="90" r="4"/><circle cx="325" cy="70" r="4"/><circle cx="380" cy="80" r="4"/><circle cx="435" cy="60" r="4"/><circle cx="490" cy="50" r="4"/></g>
+            <circle cx="545" cy="50" r="6" fill="var(--green)"/>
+            <text x="50" y="200" text-anchor="middle">1</text><text x="545" y="200" text-anchor="middle">10</text>
+          </svg>
+          <div class="weak"><span>À revoir : premiers secours</span><span>À revoir : croisements</span></div>
+        </div>
+        <div class="panel">
+          <h3>Le dossier, étape par étape</h3>
+          <p class="sub">Mis à jour par l'auto-école</p>
+          <ul class="steps-list">
+            <li><svg viewBox="0 0 22 22" aria-label="Fait"><circle cx="11" cy="11" r="10" fill="var(--green)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pièces du dossier reçues</span><span class="meta">3 oct.</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="Fait"><circle cx="11" cy="11" r="10" fill="var(--green)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green-ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Visite médicale</span><span class="meta">10 oct.</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="En cours"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--yellow)" stroke-width="2.5"/><path d="M11 6v5l3 2" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/></svg><span>Cours de code en salle</span><span class="meta">42 h / 60 h</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="À venir"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--rule)" stroke-width="2.5"/></svg><span class="todo">Inscription à l'examen du code</span><span class="meta">—</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="À venir"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--rule)" stroke-width="2.5"/></svg><span class="todo">Leçons de conduite</span><span class="meta">0 h</span></li>
+            <li><svg viewBox="0 0 22 22" aria-label="À venir"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--rule)" stroke-width="2.5"/></svg><span class="todo">Examen de conduite</span><span class="meta">—</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="langues" aria-labelledby="t-lang">
+    <div class="c lang-grid">
+      <div>
+        <h2 id="t-lang">Les questions lues à voix haute, en français et dans les langues du pays</h2>
+        <p class="muted" style="margin-top:18px">Beaucoup de candidats lisent peu le français. Chaque question et chaque réponse est lue à voix haute. Les enregistrements en langues nationales se font avec des moniteurs qui les parlent, langue par langue.</p>
+        <button type="button" class="btn btn-primary" id="say-demo">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2z" fill="currentColor"/><path d="M11.5 5.5a3.5 3.5 0 010 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Écouter une question
+        </button>
+      </div>
+      <div class="langs">
+        <div class="lang"><b>Français</b><span>Tout le pays</span><span class="st ready">Disponible</span></div>
+        <div class="lang"><b>Fon</b><span>Sud et centre</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Yoruba</b><span>Sud-est</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Goun</b><span>Ouémé</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Mina</b><span>Mono</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Adja</b><span>Couffo</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Bariba</b><span>Borgou</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Dendi</b><span>Alibori</span><span class="st work">En préparation</span></div>
+        <div class="lang"><b>Ditammari</b><span>Atacora</span><span class="st work">En préparation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="panneaux" aria-labelledby="t-signs">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-signs">Les panneaux du code, par famille</h2></div>
+        <p>La forme et la couleur d'un panneau indiquent déjà sa famille : triangle pour un danger, rond rouge pour une interdiction, rond bleu pour une obligation, carré bleu pour une indication.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrer les panneaux" id="filters"></div>
+      <div class="signs" id="signs"></div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="conduite" aria-labelledby="t-drive">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-drive">Leçons de conduite à Cotonou, Calavi et Porto-Novo</h2></div>
+        <p>Le moniteur te retrouve au point de rendez-vous. Rappel par SMS la veille, annulation gratuite jusqu'à 24 h avant.</p>
+      </div>
+      <div class="drive">
+        <div class="agencies">
+          <div class="agency"><h3>Cotonou · Étoile Rouge<span class="tag">Agence</span></h3><p class="addr">Carrefour Étoile Rouge</p><p class="hrs">Lun – Ven 7 h 30 – 19 h<br>Sam 8 h – 14 h</p></div>
+          <div class="agency"><h3>Cotonou · Akpakpa</h3><p class="addr">Point de rendez-vous au carrefour Dodji</p><p class="hrs">Lun – Sam<br>7 h – 18 h</p></div>
+          <div class="agency"><h3>Abomey-Calavi</h3><p class="addr">Point de rendez-vous à l'entrée du campus</p><p class="hrs">Lun – Sam<br>7 h – 18 h</p></div>
+          <div class="agency"><h3>Porto-Novo · Ouando</h3><p class="addr">Point de rendez-vous au marché de Ouando</p><p class="hrs">Mar – Sam<br>8 h – 17 h</p></div>
+          <div class="agency"><h3>Parakou<span class="tag">Bientôt</span></h3><p class="addr">Ouverture prévue en 2027</p><p class="hrs">—</p></div>
+        </div>
+
+        <div class="book">
+          <header><h3>Réserver une leçon</h3><span>Durée : 2 h</span></header>
+          <form id="book">
+            <div class="f">
+              <label for="b-lieu">Point de départ</label>
+              <select id="b-lieu">
+                <option>Cotonou · Étoile Rouge</option>
+                <option>Cotonou · Akpakpa</option>
+                <option>Abomey-Calavi</option>
+                <option>Porto-Novo · Ouando</option>
+              </select>
+            </div>
+            <div class="f"><span class="lbl" id="l-day">Jour</span><div class="days" role="group" aria-labelledby="l-day" id="days"></div></div>
+            <div class="f"><span class="lbl" id="l-slot">Heure de début</span><div class="slots" role="group" aria-labelledby="l-slot" id="slots"></div></div>
+            <div class="f"><span class="lbl">Paiement</span>
+              <div class="pays">
+                <label><input type="radio" name="pay" id="p-mtn" value="MTN MoMo" checked> MTN MoMo</label>
+                <label><input type="radio" name="pay" id="p-moov" value="Moov Money"> Moov Money</label>
+                <label><input type="radio" name="pay" id="p-cash" value="espèces à l'agence"> À l'agence</label>
+              </div>
+            </div>
+            <div class="total"><span class="muted">2 heures de conduite</span><b>10 000 FCFA</b></div>
+            <button class="btn btn-primary" type="submit">Confirmer la réservation</button>
+            <div class="ok-msg" id="book-ok" hidden></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="comparer" aria-labelledby="t-cmp">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-cmp">Une application de révision et une vraie auto-école, au même endroit</h2></div>
+        <p>Une application seule t'entraîne au code, mais ne t'apprend pas à conduire et ne dépose pas ton dossier. Une auto-école sans application te laisse réviser seul avec un livret. Ici, tu as les deux.</p>
+      </div>
+      <div class="table-scroll">
+        <table class="compare">
+          <thead><tr><th scope="col">Ce dont tu as besoin</th><th scope="col" class="us">Volant Bénin</th><th scope="col">Application de révision seule</th><th scope="col">Auto-école sans application</th></tr></thead>
+          <tbody>
+              <tr><td>Questions lues à voix haute, comme à l'examen</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Mode examen : 20 questions, barre à 14/20</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Fonctionne sur Android et iPhone, même hors connexion</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><span class="part">Souvent Android seulement</span></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Moniteur qui voit tes résultats et te dit quand tu es prêt</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><span class="part">En salle seulement</span></td></tr>
+              <tr><td>Cours de code en salle et leçons de conduite</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td></tr>
+              <tr><td>Réservation des leçons en ligne</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td></tr>
+              <tr><td>Dossier ANaTT et inscription à l'examen suivis en ligne</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><svg viewBox="0 0 20 20" aria-label="Non"><circle cx="10" cy="10" r="9" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M7 13l6-6" stroke="var(--ink-2)" stroke-width="1.8" stroke-linecap="round"/></svg></td><td><span class="part">Sur place</span></td></tr>
+              <tr><td>Paiement en plusieurs fois par Mobile Money</td><td class="us"><svg viewBox="0 0 20 20" aria-label="Oui"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td><td><span class="part">En une fois</span></td><td><span class="part">En espèces</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="tarifs" aria-labelledby="t-tarifs">
+    <div class="c">
+      <div class="sec-head">
+        <div><h2 id="t-tarifs">Tarifs du code et du permis</h2></div>
+        <p>Le code en ligne seul ou la formation complète, avec la même application. Les frais d'examen de l'ANaTT sont réglés selon son barème.</p>
+      </div>
+      <div class="price-grid">
+        <div class="table-scroll">
+          <table class="tarifs">
+            <thead><tr><th scope="col">Formule</th><th scope="col">Ce qui est compris</th><th scope="col">Prix</th></tr></thead>
+            <tbody>
+              <tr><td><b>Code en ligne</b><span>Accès 3 mois</span></td><td><span>Questions lues à voix haute, examens blancs illimités, hors connexion</span></td><td class="amt">5 000<small>FCFA</small></td></tr>
+              <tr class="hl"><td><b>Permis B<span class="badge">Le plus choisi</span></b><span>Voiture</span></td><td><span>Cours de code en salle et en ligne, leçons de conduite, dossier ANaTT, accompagnement aux deux examens</span></td><td class="amt">175 000<small>FCFA</small></td></tr>
+              <tr><td><b>Permis A</b><span>Moto</span></td><td><span>Code en salle et en ligne, leçons sur plateau et en circulation, dossier ANaTT</span></td><td class="amt">90 000<small>FCFA</small></td></tr>
+              <tr><td><b>Heure supplémentaire</b><span>Voiture ou moto</span></td><td><span>À réserver dans l'application</span></td><td class="amt">5 000<small>FCFA</small></td></tr>
+              <tr><td><b>Frais de dossier</b><span>Une seule fois</span></td><td><span>Vérification des pièces, ouverture du compte élève</span></td><td class="amt">10 000<small>FCFA</small></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pay-note">
+          <h3>Payer en 3 fois</h3>
+          <p>Exemple pour le permis B. Chaque échéance se paie depuis ton téléphone, et le reçu arrive par SMS.</p>
+          <div class="split">
+            <div><small>À l'inscription</small><b>70 000</b></div>
+            <div><small>Semaine 4</small><b>55 000</b></div>
+            <div><small>Avant l'examen</small><b>50 000</b></div>
+          </div>
+          <div class="wallets"><span class="wallet">MTN MoMo</span><span class="wallet">Moov Money</span><span class="wallet">Celtiis Cash</span><span class="wallet">Carte bancaire</span><span class="wallet">Espèces</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="ecoles" aria-labelledby="t-pro">
+    <div class="c pro-grid">
+      <div>
+        
+        <h2 id="t-pro">L'espace moniteur : tous les élèves sur un écran</h2>
+        <ul class="pro-list">
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--green-tint)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Savoir qui est prêt</b>Les résultats au code remontent automatiquement. Tu vois tout de suite qui peut passer l'examen.</span></li>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--green-tint)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Un agenda partagé</b>Tu ouvres tes créneaux, les élèves réservent. Plus d'appels pour déplacer une leçon.</span></li>
+          <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--green-tint)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Les paiements suivis</b>Chaque versement Mobile Money est enregistré. Les rappels d'échéance partent tout seuls.</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="laptop" role="img" aria-label="Aperçu du tableau de bord moniteur">
+          <div class="chrome"><i></i><i></i><i></i><span>moniteur.volantbenin.bj/eleves</span></div>
+          <div class="board">
+            <div class="side"><span class="on">Élèves</span><span>Agenda</span><span>Paiements</span><span>Examens</span><span>Réglages</span></div>
+            <div class="main">
+              <div class="stats">
+                <div class="stat"><small>Élèves actifs</small><b>48</b></div>
+                <div class="stat"><small>À 14/20 ou plus</small><b>9</b></div>
+                <div class="stat"><small>Leçons cette semaine</small><b>31</b></div>
+              </div>
+              <div class="tw">
+                <table>
+                  <thead><tr><th>Élève</th><th>Formule</th><th>Code</th><th>Conduite</th><th>Statut</th></tr></thead>
+                  <tbody>
+                    <tr><td>Aïcha Kpadonou</td><td>Permis B</td><td class="num">18/20</td><td class="num"><span class="mini-bar"><i style="width:60%"></i></span>12 h</td><td><span class="st ready">Prête</span></td></tr>
+                    <tr><td>Sènan Ahouansou</td><td>Permis A</td><td class="num">17/20</td><td class="num"><span class="mini-bar"><i style="width:90%"></i></span>9 h</td><td><span class="st ready">Prêt</span></td></tr>
+                    <tr><td>Fifamè Agossou</td><td>Permis B</td><td class="num">13/20</td><td class="num"><span class="mini-bar"><i style="width:30%"></i></span>6 h</td><td><span class="st work">En cours</span></td></tr>
+                    <tr><td>Mariam Bio Sika</td><td>Permis B</td><td class="num">15/20</td><td class="num"><span class="mini-bar"><i style="width:45%"></i></span>9 h</td><td><span class="st late">Échéance due</span></td></tr>
+                    <tr><td>Koffi Dossou</td><td>Code seul</td><td class="num">11/20</td><td class="num">—</td><td><span class="st work">En cours</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+              </div>
+    </div>
+  </section>
+
+  <section class="sec alt" aria-labelledby="t-faq">
+    <div class="c faq-grid">
+      <div>
+        
+        <h2 id="t-faq">Questions avant l'inscription</h2>
+        <div class="contact-box">
+          <span class="muted">Une autre question ? Passe à l'agence d'Étoile Rouge ou écris-nous sur WhatsApp.</span>
+          <a class="btn btn-line" href="#conduite" style="justify-self:start">Voir les agences</a>
+        </div>
+      </div>
+      <div class="faq">
+        <details open><summary>Comment se passe l'examen du code au Bénin ?</summary><p>L'épreuve se passe sur l'application e-codepermis de l'ANaTT. Les questions sont lues à voix haute et le résultat s'affiche tout de suite. Il faut 14 sur 20 pour réussir. Le mode examen du simulateur reprend ce déroulé.</p></details>
+        <details><summary>Qu'est-ce qui change avec la réforme de 2026 ?</summary><p>La réforme du permis prévoit un volume minimum de cours théoriques et pratiques en auto-école avant chaque examen, et une barre de 14/20. Le nouveau Code de la route, voté en octobre 2026, renforce aussi les règles sur le casque et la ceinture. Ton moniteur te dit ce qui s'applique à ton dossier.</p></details>
+        <details><summary>L'application marche-t-elle sur iPhone et sans internet ?</summary><p>Oui. Elle s'ouvre dans le navigateur et s'installe sur l'écran d'accueil, sur Android comme sur iPhone. Une fois les séries téléchargées en Wi-Fi, tu révises sans connexion ; tes notes se synchronisent au retour du réseau.</p></details>
+        <details><summary>Quels documents dois-je fournir ?</summary><p>Une pièce d'identité valide, des photos d'identité et un certificat médical. Tout s'envoie en photo depuis le téléphone. La liste exacte s'affiche à l'inscription.</p></details>
+        <details><summary>Et si j'échoue à l'examen ?</summary><p>Ton accès au code reste ouvert. Le simulateur te repropose les thèmes où tu as fait des erreurs, et ton moniteur te réinscrit à la session suivante.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="c">
+      <div><h2>Fais ton premier examen blanc ce soir</h2><p>Il est gratuit et sans inscription. Tu sauras où tu en es par rapport à la barre des 14/20.</p></div>
+      <a class="btn" href="#code">Faire un examen blanc</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="c">
+    <div class="cols">
+      <div>
+        <a class="logo" href="#top">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="var(--green)"/><circle cx="20" cy="20" r="11.5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="20" cy="20" r="3" fill="var(--yellow)"/><path d="M8.8 18.2 L17 19.4 M31.2 18.2 L23 19.4 M20 23 L20 31.3" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+          <span><b>Volant Bénin</b><small>Auto-école agréée</small></span>
+        </a>
+        <p class="about">Auto-école à Cotonou. Code de la route en ligne et leçons de conduite pour les permis A et B.</p>
+        <div class="stores"><span class="store">Bientôt sur<b>Android</b></span><span class="store">Bientôt sur<b>iPhone</b></span></div>
+      </div>
+      <div><h4>Formations</h4><ul><li><a href="#code">Simulateur du code</a></li><li><a href="#langues">Langues</a></li><li><a href="#tarifs">Permis B</a></li><li><a href="#tarifs">Permis A</a></li><li><a href="#conduite">Heures de conduite</a></li></ul></div>
+      <div><h4>Agences</h4><ul><li>Cotonou · Étoile Rouge</li><li>Cotonou · Akpakpa</li><li>Abomey-Calavi</li><li>Porto-Novo</li></ul></div>
+      <div><h4>Aide</h4><ul><li><a href="#t-faq">Questions fréquentes</a></li><li><a href="#ecoles">Espace moniteur</a></li><li>Conditions générales</li><li>Confidentialité</li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Volant Bénin</span><span>Prototype : nom, tarifs et élèves fictifs, à remplacer</span></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  /* ---------- Panneaux (SVG) ---------- */
+  const R = '#c8202a', B = '#0d4fa0', K = '#111', W = '#fff', Y = '#f2c230';
+  const tri = inner => `<svg viewBox="0 0 100 100"><polygon points="50,7 95,87 5,87" fill="${W}" stroke="${R}" stroke-width="9" stroke-linejoin="round"/>${inner}</svg>`;
+  const ban = inner => `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="${W}" stroke="${R}" stroke-width="10"/>${inner}</svg>`;
+  const obl = inner => `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="${B}"/>${inner}</svg>`;
+  const ind = inner => `<svg viewBox="0 0 100 100"><rect x="5" y="5" width="90" height="90" rx="8" fill="${B}"/>${inner}</svg>`;
+  const txt = (t, size, fill, y) => `<text x="50" y="${y}" text-anchor="middle" font-family="Barlow Semi Condensed, Arial, sans-serif" font-weight="800" font-size="${size}" fill="${fill}">${t}</text>`;
+  const SIGNS = {
+    stop: `<svg viewBox="0 0 100 100"><polygon points="30,3 70,3 97,30 97,70 70,97 30,97 3,70 3,30" fill="${R}" stroke="${W}" stroke-width="4"/>${txt('STOP', 30, W, 61)}</svg>`,
+    cedez: `<svg viewBox="0 0 100 100"><polygon points="50,93 5,13 95,13" fill="${W}" stroke="${R}" stroke-width="9" stroke-linejoin="round"/></svg>`,
+    danger: tri(`<rect x="45" y="36" width="10" height="30" rx="3" fill="${K}"/><circle cx="50" cy="75" r="5.5" fill="${K}"/>`),
+    virage: tri(`<path d="M44 78 L44 62 Q44 46 58 44" fill="none" stroke="${K}" stroke-width="7"/><polygon points="56,34 68,44 56,54" fill="${K}"/>`),
+    dosane: tri(`<path d="M24 76 Q50 42 76 76 Z" fill="${K}"/>`),
+    retreci: tri(`<path d="M36 80 L42 64 L42 44 M64 80 L58 64 L58 44" fill="none" stroke="${K}" stroke-width="6"/>`),
+    feux: tri(`<rect x="41" y="32" width="18" height="48" rx="5" fill="${K}"/><circle cx="50" cy="41" r="5" fill="${R}"/><circle cx="50" cy="56" r="5" fill="${Y}"/><circle cx="50" cy="71" r="5" fill="#2fa774"/>`),
+    sens: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="${R}"/><rect x="17" y="41" width="66" height="18" fill="${W}"/></svg>`,
+    v50: ban(txt('50', 40, K, 64)),
+    tous: ban(''),
+    gauche: ban(`<path d="M60 72 L60 46 Q60 38 52 38 L38 38" fill="none" stroke="${K}" stroke-width="8"/><polygon points="40,26 26,38 40,50" fill="${K}"/><line x1="22" y1="78" x2="78" y2="22" stroke="${R}" stroke-width="9"/>`),
+    depasser: ban(`<rect x="22" y="36" width="22" height="32" rx="5" fill="${K}"/><rect x="56" y="36" width="22" height="32" rx="5" fill="${R}"/>`),
+    stationnement: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="${B}" stroke="${R}" stroke-width="10"/><line x1="20" y1="80" x2="80" y2="20" stroke="${R}" stroke-width="10"/></svg>`,
+    arret: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="${B}" stroke="${R}" stroke-width="10"/><line x1="20" y1="80" x2="80" y2="20" stroke="${R}" stroke-width="10"/><line x1="20" y1="20" x2="80" y2="80" stroke="${R}" stroke-width="10"/></svg>`,
+    droite: obl(`<path d="M36 76 L36 52 Q36 42 46 42 L62 42" fill="none" stroke="${W}" stroke-width="9"/><polygon points="60,28 78,42 60,56" fill="${W}"/>`),
+    contourner: obl(`<path d="M32 32 L62 62" stroke="${W}" stroke-width="9"/><polygon points="72,50 72,72 50,72" fill="${W}"/>`),
+    vmin: obl(txt('30', 40, W, 64)),
+    parking: ind(txt('P', 64, W, 73)),
+    hopital: ind(`<rect x="22" y="22" width="56" height="56" rx="4" fill="${W}"/>${txt('H', 46, B, 67)}`),
+    sensunique: ind(`<rect x="44" y="36" width="12" height="46" fill="${W}"/><polygon points="50,16 70,40 30,40" fill="${W}"/>`),
+    prioritaire: `<svg viewBox="0 0 100 100"><polygon points="50,3 97,50 50,97 3,50" fill="${W}" stroke="#999" stroke-width="1.5"/><polygon points="50,17 83,50 50,83 17,50" fill="${Y}"/></svg>`,
+    finprio: `<svg viewBox="0 0 100 100"><polygon points="50,3 97,50 50,97 3,50" fill="${W}" stroke="#999" stroke-width="1.5"/><polygon points="50,17 83,50 50,83 17,50" fill="${Y}"/><line x1="24" y1="76" x2="76" y2="24" stroke="${K}" stroke-width="7"/></svg>`
+  };
+  const CATALOG = [
+    ['danger', 'Danger', [['danger', 'Autre danger'], ['virage', 'Virage à droite'], ['dosane', 'Dos-d\'âne'], ['retreci', 'Chaussée rétrécie'], ['feux', 'Feux tricolores']]],
+    ['interdiction', 'Interdiction', [['sens', 'Sens interdit'], ['v50', 'Vitesse limitée à 50 km/h'], ['gauche', 'Interdit de tourner à gauche'], ['depasser', 'Interdit de dépasser'], ['stationnement', 'Stationnement interdit'], ['arret', 'Arrêt et stationnement interdits']]],
+    ['obligation', 'Obligation', [['droite', 'Tourner à droite'], ['contourner', 'Contourner par la droite'], ['vmin', 'Vitesse minimale 30 km/h']]],
+    ['priorite', 'Priorité', [['stop', 'Stop'], ['cedez', 'Cédez le passage'], ['prioritaire', 'Route prioritaire'], ['finprio', 'Fin de route prioritaire']]],
+    ['indication', 'Indication', [['parking', 'Parking'], ['hopital', 'Hôpital'], ['sensunique', 'Sens unique']]]
+  ];
+  const filters = document.getElementById('filters'), grid = document.getElementById('signs');
+  let cur = 'all';
+  const total = CATALOG.reduce((n, c) => n + c[2].length, 0);
+  const fbtn = (id, label, n) => `<button type="button" class="filter" data-f="${id}" aria-pressed="${id === cur}">${label}<span class="n">${n}</span></button>`;
+  function drawFilters() { filters.innerHTML = fbtn('all', 'Tous', total) + CATALOG.map(c => fbtn(c[0], c[1], c[2].length)).join(''); }
+  function drawSigns() {
+    grid.innerHTML = CATALOG.filter(c => cur === 'all' || c[0] === cur).flatMap(c => c[2].map(s =>
+      `<div class="sign-card">${SIGNS[s[0]].replace('<svg ', `<svg role="img" aria-label="${s[1]}" `)}<b>${s[1]}</b><span>${c[1]}</span></div>`)).join('');
+  }
+  filters.addEventListener('click', e => { const b = e.target.closest('.filter'); if (!b) return; cur = b.dataset.f; drawFilters(); drawSigns(); });
+  drawFilters(); drawSigns();
+
+  /* ---------- Scènes illustrées ---------- */
+  const sky = `<rect width="400" height="300" fill="#2f3b36"/><rect width="400" height="96" fill="#8cc0de"/><rect y="84" width="400" height="18" fill="#4f7a3a"/>`;
+  const SCENES = {
+    rondpoint: `<svg class="full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sky}
+      <ellipse cx="200" cy="186" rx="220" ry="96" fill="#3c4944"/><ellipse cx="200" cy="186" rx="80" ry="34" fill="#5b8a45"/><ellipse cx="200" cy="186" rx="80" ry="34" fill="none" stroke="#e8e8e8" stroke-width="3" stroke-dasharray="10 8"/>
+      <rect x="262" y="132" width="46" height="24" rx="6" fill="#d9a21b" transform="rotate(-12 285 144)"/><rect x="62" y="156" width="44" height="22" rx="6" fill="#c8202a" transform="rotate(14 84 167)"/>
+      <rect x="146" y="246" width="40" height="64" rx="8" fill="#0d4fa0"/><rect x="151" y="254" width="30" height="16" rx="3" fill="#a9c9ec"/>
+      <path d="M120 250 L150 222" stroke="#fff" stroke-width="5" stroke-dasharray="12 9"/></svg>`,
+    pieton: `<svg class="full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sky}
+      <g fill="#ececec">${[0, 1, 2, 3, 4, 5, 6].map(k => `<rect x="${58 + k * 42}" y="160" width="26" height="62"/>`).join('')}</g>
+      <circle cx="234" cy="124" r="10" fill="#5b3a29"/><rect x="225" y="135" width="18" height="32" rx="6" fill="#f2c230"/><rect x="226" y="165" width="6" height="24" fill="#222"/><rect x="236" y="165" width="6" height="24" fill="#222"/>
+      <rect x="140" y="236" width="120" height="80" rx="14" fill="#1b2420"/><rect x="156" y="246" width="88" height="24" rx="4" fill="#3b5a6e"/></svg>`,
+    moto: `<svg class="full" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sky}
+      <rect x="0" y="210" width="400" height="5" fill="#ececec" opacity=".6"/>
+      <g transform="translate(130 104)"><circle cx="24" cy="120" r="26" fill="#1b1b1b"/><circle cx="24" cy="120" r="12" fill="#555"/><circle cx="124" cy="120" r="26" fill="#1b1b1b"/><circle cx="124" cy="120" r="12" fill="#555"/>
+      <path d="M24 120 L58 82 L108 82 L124 120" fill="none" stroke="#f2c230" stroke-width="11" stroke-linejoin="round"/><path d="M108 82 L118 54" stroke="#222" stroke-width="8" stroke-linecap="round"/>
+      <rect x="80" y="38" width="22" height="44" rx="7" fill="#2a8e5f"/><circle cx="92" cy="24" r="15" fill="#c8202a"/><rect x="86" y="18" width="16" height="7" rx="3" fill="#1b2420"/>
+      <rect x="54" y="42" width="20" height="42" rx="7" fill="#d06f2b"/><circle cx="62" cy="28" r="13" fill="#5b3a29"/></g></svg>`
+  };
+
+  /* ---------- Voix ---------- */
+  const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+  let voice = null;
+  const pickVoice = () => { if (!synth) return; const v = synth.getVoices(); voice = v.find(x => /^fr(-|_)?/i.test(x.lang) && /BJ|FR/i.test(x.lang)) || v.find(x => /^fr/i.test(x.lang)) || null; };
+  if (synth) { pickVoice(); synth.addEventListener?.('voiceschanged', pickVoice); }
+  const canSpeak = () => !!synth && !!voice;
+  function speak(text, done) {
+    if (!synth) { done && done(false); return; }
+    try {
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      if (voice) u.voice = voice;
+      u.lang = voice ? voice.lang : 'fr-FR'; u.rate = 0.95;
+      let fired = false; const end = ok => { if (!fired) { fired = true; done && done(ok); } };
+      u.onend = () => end(true); u.onerror = () => end(false);
+      synth.speak(u);
+      setTimeout(() => { if (!synth.speaking && !synth.pending) end(false); }, 1500);
+    } catch (e) { done && done(false); }
+  }
+  const stopSpeak = () => { try { synth && synth.cancel(); } catch (e) {} };
+  const readOut = it => it.q + ' ' + it.a.map((t, k) => 'Réponse ' + 'ABCD'[k] + ' : ' + t + '.').join(' ');
+
+  /* ---------- Questions ---------- */
+  const Q = [
+    { img: { sign: 'stop' }, q: 'Arrivé à ce panneau, aucun véhicule ne vient. Je dois :', a: ['Passer sans m\'arrêter', 'M\'arrêter complètement à la ligne', 'Céder le passage aux véhicules qui arrivent', 'Klaxonner avant de passer'], c: [1, 2], e: 'Le STOP impose un arrêt complet à la ligne, même si la voie paraît libre. Ensuite, on cède le passage à tous les véhicules.' },
+    { img: { sign: 'cedez' }, q: 'Ce panneau m\'oblige à :', a: ['M\'arrêter dans tous les cas', 'Céder le passage aux véhicules de la route que j\'aborde', 'Laisser passer seulement les véhicules venant de droite'], c: [1], e: 'Le triangle pointe en bas signifie « cédez le passage ». L\'arrêt n\'est obligatoire que si un véhicule arrive.' },
+    { img: { scene: 'rondpoint' }, q: 'J\'entre dans ce carrefour giratoire, signalé par un « cédez le passage ». Qui passe en premier ?', a: ['Moi, j\'arrive par la droite', 'Les véhicules déjà engagés dans l\'anneau', 'Le plus gros véhicule'], c: [1], e: 'À l\'entrée d\'un giratoire signalé par un « cédez le passage », les véhicules qui circulent déjà sur l\'anneau sont prioritaires.' },
+    { img: { sign: 'v50' }, q: 'Ce panneau indique :', a: ['Une vitesse conseillée de 50 km/h', 'Une vitesse maximale de 50 km/h', 'Une vitesse minimale de 50 km/h', 'La fin d\'une limitation à 50 km/h'], c: [1], e: 'Rond à bord rouge : c\'est une interdiction. Il est interdit de dépasser 50 km/h. Une vitesse minimale serait indiquée sur fond bleu.' },
+    { img: { scene: 'pieton' }, q: 'Un piéton s\'engage sur le passage. Que dois-je faire ?', a: ['Ralentir et le laisser traverser', 'Klaxonner pour qu\'il se dépêche', 'M\'arrêter avant le passage si nécessaire', 'Le contourner par la gauche'], c: [0, 2], e: 'Le piéton engagé sur un passage est prioritaire. On ralentit et on s\'arrête avant les bandes blanches si besoin.' },
+    { img: { scene: 'moto' }, q: 'Sur ce zémidjan, le casque est obligatoire pour :', a: ['Le conducteur', 'Le passager', 'Personne en agglomération'], c: [0, 1], e: 'Le casque est obligatoire pour le conducteur et pour le passager, même pour un court trajet en ville.' },
+    { img: { sign: 'sens' }, q: 'Ce panneau signifie :', a: ['Stationnement interdit', 'Sens interdit à tout véhicule', 'Route barrée pour travaux'], c: [1], e: 'Disque rouge et barre blanche : sens interdit. On ne s\'engage pas dans cette voie.' },
+    { img: { sign: 'prioritaire' }, q: 'Je circule sous ce panneau. Aux prochaines intersections :', a: ['Je dois céder le passage à droite', 'Les véhicules des routes qui croisent doivent me céder le passage', 'Je dois m\'arrêter'], c: [1], e: 'Le losange jaune signale une route prioritaire. La priorité à droite ne s\'applique plus jusqu\'au panneau de fin.' }
+  ];
+  const ICON_OK = '<svg viewBox="0 0 18 18" aria-label="Juste"><circle cx="9" cy="9" r="8" fill="#3fbf86"/><path d="M5.5 9.2l2.3 2.3 4.7-5" fill="none" stroke="#04130c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const ICON_KO = '<svg viewBox="0 0 18 18" aria-label="Faux"><circle cx="9" cy="9" r="8" fill="#f0565d"/><path d="M6.2 6.2l5.6 5.6M11.8 6.2l-5.6 5.6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
+  const SPK = '<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 7h3l4-3v10l-4-3H2z" fill="currentColor"/><path d="M12 6a4 4 0 010 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  const WAVE = '<span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span>';
+  const DUR = 20, L = 'ABCD';
+  const box = document.getElementById('exam');
+  let mode = 'train', i = 0, sel = new Set(), left = DUR, timer = null, done = false, results = [], listening = false;
+
+  const clock = () => { const C = 2 * Math.PI * 22, p = left / DUR; return `<svg class="clock" viewBox="0 0 52 52" aria-label="${left} secondes restantes"><circle cx="26" cy="26" r="22" fill="rgba(0,0,0,.55)"/><circle cx="26" cy="26" r="22" fill="none" stroke="${left <= 5 ? '#f0565d' : '#f2c230'}" stroke-width="4" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - p)}" transform="rotate(-90 26 26)" stroke-linecap="round"/><text x="26" y="31" text-anchor="middle">${left}</text></svg>`; };
+  const visual = it => it.img.sign ? `<span class="pole"></span>` + SIGNS[it.img.sign].replace('<svg ', '<svg class="sign" aria-hidden="true" ') : SCENES[it.img.scene];
+  const top = (label) => `<div class="exam-top"><div class="modes" role="group" aria-label="Mode"><button type="button" class="mode" data-m="train" aria-pressed="${mode === 'train'}">Entraînement</button><button type="button" class="mode" data-m="exam" aria-pressed="${mode === 'exam'}">Examen</button></div><span class="t">${label}</span><span class="bar"><span style="width:${(Math.min(i, Q.length) / Q.length) * 100}%"></span></span></div>`;
+  box.addEventListener('click', e => { const m = e.target.closest('.mode'); if (!m || m.dataset.m === mode) return; mode = m.dataset.m; restart(); });
+
+  function render() {
+    const it = Q[i], exam = mode === 'exam';
+    const showText = !exam || !canSpeak();
+    box.innerHTML = top(`Q ${String(i + 1).padStart(2, '0')}/${String(Q.length).padStart(2, '0')}`) + `
+      <div class="exam-scene">
+        <div class="scene-img">${visual(it)}<span id="clock">${clock()}</span></div>
+        <div class="qa">
+          ${exam && canSpeak() ? `<p class="q">Écoute la question.</p><p class="exam-note">Elle est lue une seule fois. Rien n'est écrit, comme à l'examen.</p>` : `<p class="q">${it.q}</p>`}
+          ${exam && !canSpeak() ? `<p class="exam-note">La lecture à voix haute n'est pas disponible sur cet appareil : le texte s'affiche à la place.</p>` : ''}
+          <button type="button" class="listen" id="listen" ${exam ? 'disabled' : ''}>${SPK}<span>${exam ? 'Lecture en cours' : 'Écouter'}</span>${WAVE}</button>
+          ${showText && !exam ? '<p class="hint">Une ou plusieurs bonnes réponses</p>' : ''}
+          ${showText
+            ? `<div class="opts">${it.a.map((t, k) => `<button type="button" class="opt" data-k="${k}" aria-pressed="false"><span class="k">${L[k]}</span><span>${t}</span></button>`).join('')}</div>`
+            : `<div class="cards">${it.a.map((_, k) => `<button type="button" class="card opt" data-k="${k}" aria-pressed="false" aria-label="Réponse ${L[k]}">${L[k]}</button>`).join('')}</div>`}
+          <div id="corr"></div>
+          <div class="row"><button type="button" class="btn-exam clr" id="clr">Effacer</button><button type="button" class="btn-exam val" id="val" disabled>Valider</button></div>
+        </div>
+      </div>`;
+    if (!canSpeak()) box.querySelector('#listen').hidden = true;
+    box.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => toggle(+b.dataset.k)));
+    box.querySelector('#clr').addEventListener('click', () => { if (done) return; sel.clear(); sync(); });
+    box.querySelector('#val').addEventListener('click', () => done ? next() : validate());
+    box.querySelector('#listen').addEventListener('click', () => { if (mode === 'train') listen(it); });
+  }
+  function listen(it, after) {
+    const b = box.querySelector('#listen'); if (!b) return after && after();
+    b.classList.add('on'); listening = true;
+    speak(readOut(it), () => { listening = false; const bb = box.querySelector('#listen'); if (bb) { bb.classList.remove('on'); if (mode === 'exam') bb.querySelector('span').textContent = 'Question lue'; } after && after(); });
+  }
+  function sync() {
+    box.querySelectorAll('.opt').forEach(b => b.setAttribute('aria-pressed', sel.has(+b.dataset.k)));
+    if (!done) box.querySelector('#val').disabled = sel.size === 0;
+  }
+  function toggle(k) { if (done || k >= Q[i].a.length) return; sel.has(k) ? sel.delete(k) : sel.add(k); sync(); }
+  function startClock() {
+    clearInterval(timer);
+    timer = setInterval(() => { left = Math.max(0, left - 1); const c = box.querySelector('#clock'); if (c) c.innerHTML = clock(); if (left === 0) validate(); }, 1000);
+  }
+  function start() {
+    clearInterval(timer); stopSpeak(); sel = new Set(); left = DUR; done = false; render();
+    if (mode === 'exam' && canSpeak()) listen(Q[i], startClock); else startClock();
+  }
+  function restart() { i = 0; results = []; start(); }
+  function validate() {
+    if (done) return; done = true; clearInterval(timer); stopSpeak();
+    const it = Q[i];
+    const good = sel.size === it.c.length && it.c.every(k => sel.has(k));
+    results[i] = { good, sel: [...sel] };
+    if (mode === 'exam') { next(); return; }
+    box.querySelectorAll('.opt').forEach(b => {
+      const k = +b.dataset.k; b.disabled = true;
+      if (it.c.includes(k)) b.classList.add('right'); else if (sel.has(k)) b.classList.add('wrong');
+    });
+    const ans = it.c.map(k => L[k]).join(' et ');
+    box.querySelector('#corr').innerHTML = `<div class="corr"><b>${good ? 'Juste' : sel.size ? 'Faux' : 'Temps écoulé'} · réponse ${ans}.</b> ${it.e}</div>`;
+    box.querySelector('#clr').hidden = true;
+    const v = box.querySelector('#val'); v.disabled = false; v.textContent = i === Q.length - 1 ? 'Voir le résultat' : 'Question suivante'; v.focus({ preventScroll: true });
+  }
+  function next() { i++; i < Q.length ? start() : finish(); }
+  function finish() {
+    const score = results.filter(r => r.good).length;
+    const on20 = Math.round(score / Q.length * 20), ok = on20 >= 14;
+    box.innerHTML = top(mode === 'exam' ? 'Résultat de l\'examen' : 'Résultat') + `
+      <div class="exam-scene"><div class="end">
+        <div><div class="score">${on20}<small>/20</small></div>
+          <span class="verdict" style="background:${ok ? '#3fbf86' : '#f2c230'};color:#06140e">${ok ? 'Reçu : 14/20 atteint' : 'Pas encore : il faut 14/20'}</span>
+          <div class="bar20" aria-hidden="true"><span style="width:${on20 * 5}%;background:${ok ? '#3fbf86' : '#f2c230'}"></span><b style="left:70%"></b></div>
+          <div class="bar20-legend"><span>0</span><span>barre 14</span><span>20</span></div>
+          <p style="margin-top:16px;opacity:.8">${score} bonne${score > 1 ? 's' : ''} réponse${score > 1 ? 's' : ''} sur ${Q.length}, ramené sur 20. Le vrai examen compte 20 questions.</p>
+          <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-exam val" id="again">Refaire la série</button>${mode === 'train' ? '<button type="button" class="btn-exam clr" id="to-exam">Passer en mode examen</button>' : ''}</div></div>
+        <ol>${Q.map((q, k) => `<li>${results[k] && results[k].good ? ICON_OK : ICON_KO}<span>${q.q}<small>Réponse ${q.c.map(c => L[c]).join(' et ')} : ${q.c.map(c => q.a[c]).join(' ; ')}</small></span></li>`).join('')}</ol>
+      </div></div>`;
+    box.querySelector('#again').addEventListener('click', restart);
+    const te = box.querySelector('#to-exam'); if (te) te.addEventListener('click', () => { mode = 'exam'; restart(); });
+  }
+  document.addEventListener('keydown', e => {
+    if (!box.querySelector('.opt') || e.ctrlKey || e.metaKey || e.altKey) return;
+    const r = box.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+    const k = L.indexOf(e.key.toUpperCase());
+    if (e.key.length === 1 && k >= 0) { toggle(k); e.preventDefault(); }
+    else if (e.key === 'Enter' && !document.activeElement?.closest('#exam')) { const v = box.querySelector('#val'); if (v && !v.disabled) { v.click(); e.preventDefault(); } }
+  });
+  render();
+  let started = false;
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (!started && es[0].isIntersecting) { started = true; start(); io.disconnect(); } }, { threshold: .5 });
+    io.observe(box);
+  } else start();
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopSpeak(); });
+
+  const sayBtn = document.getElementById('say-demo');
+  if (sayBtn) {
+    if (!synth) sayBtn.hidden = true;
+    sayBtn.addEventListener('click', () => { pickVoice(); speak(readOut(Q[0])); });
+  }
+
+  /* ---------- Réservation ---------- */
+  const DAYS = [['jeu', 14, 'Jeudi'], ['ven', 15, 'Vendredi'], ['sam', 16, 'Samedi'], ['lun', 18, 'Lundi'], ['mar', 19, 'Mardi']];
+  const FULL = { 14: ['09:00', '16:00'], 15: ['07:00', '11:00', '14:00'], 16: ['16:00', '18:00'], 18: [], 19: ['09:00'] };
+  const HOURS = ['07:00', '09:00', '11:00', '14:00', '16:00', '18:00'];
+  const daysEl = document.getElementById('days'), slotsEl = document.getElementById('slots');
+  let day = 14, slot = '14:00';
+  const fmt = h => h.replace(':00', ' h');
+  function drawDays() { daysEl.innerHTML = DAYS.map(([n, d]) => `<button type="button" class="day" data-d="${d}" aria-pressed="${d === day}"><small>${n}</small><b>${d}</b></button>`).join(''); }
+  function drawSlots() {
+    if (FULL[day].includes(slot)) slot = null;
+    slotsEl.innerHTML = HOURS.map(h => `<button type="button" class="slot" data-h="${h}" aria-pressed="${h === slot}" ${FULL[day].includes(h) ? `disabled aria-label="${fmt(h)}, complet"` : ''}>${fmt(h)}</button>`).join('');
+  }
+  daysEl.addEventListener('click', e => { const b = e.target.closest('.day'); if (!b) return; day = +b.dataset.d; drawDays(); drawSlots(); });
+  slotsEl.addEventListener('click', e => { const b = e.target.closest('.slot'); if (!b || b.disabled) return; slot = b.dataset.h; drawSlots(); });
+  drawDays(); drawSlots();
+  document.getElementById('book').addEventListener('submit', e => {
+    e.preventDefault();
+    const msg = document.getElementById('book-ok'); msg.hidden = false;
+    if (!slot) { msg.innerHTML = '<span></span><span>Choisis une heure de début pour continuer.</span>'; return; }
+    const d = DAYS.find(x => x[1] === day);
+    const pay = document.querySelector('input[name="pay"]:checked').value;
+    msg.innerHTML = `<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Leçon réservée (démonstration).</b> ${d[2]} ${day} novembre à ${fmt(slot)}, départ ${document.getElementById('b-lieu').value}. Paiement : ${pay}. Dans la version réelle, la confirmation arrive par SMS.</span>`;
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) { addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {})); }
+</script>
+</body>
+</html>

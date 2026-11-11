@@ -4,7 +4,15 @@ Projet de plateforme d'auto-école en ligne pour le Bénin : révision du code d
 
 ## Contenu
 
-- `maquette/index.html` : première maquette de présentation (page unique, démo du code jouable).
+- `index.html` : le site publié (Vercel), généré par `python3 scripts/build.py`.
+- `maquette/index.html` : la source de la page (sans `<head>`), à modifier.
+- `manifest.webmanifest`, `sw.js`, `icons/` : installation sur téléphone et fonctionnement hors connexion.
+
+## Mettre en ligne sur Vercel
+
+1. Sur https://vercel.com/new, choisir « Import Git Repository » et sélectionner ce dépôt.
+2. Framework : « Other ». Ne rien remplir pour la commande de build ni le dossier de sortie.
+3. Cliquer sur « Deploy ». Chaque push sur `main` met le site à jour.
 
 ## Feuille de route
 
