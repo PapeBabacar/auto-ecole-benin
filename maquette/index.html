@@ -44,9 +44,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
+img, svg { max-width: 100%; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
-body { background: var(--paper); color: var(--ink); font-family: var(--f-text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; caret-color: var(--green); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; caret-color: var(--green); }
 html { scrollbar-color: color-mix(in srgb, var(--ink-2) 55%, transparent) var(--paper-2); accent-color: var(--green); }
 ::selection { background: var(--yellow); color: #1b1600; }
 a { text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
