@@ -13,3 +13,19 @@ Projet de plateforme d'auto-école en ligne pour le Bénin : révision du code d
 3. Application mobile : réservation des leçons, tableau de bord des moniteurs
 
 Le nom « Volant Bénin », les prix et le contenu du code sont provisoires et à valider avec l'auto-école.
+
+## Skills de design utilisés
+
+La maquette suit les règles de ces skills Claude Code :
+
+- [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
+- [emilkowalski/skills](https://github.com/emilkowalski/skills)
+- [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
+
+Pour les installer sur ton ordinateur :
+
+```bash
+npx skills@latest add pbakaus/impeccable
+npx skills@latest add emilkowalski/skills
+npx skills@latest add Leonxlnx/taste-skill
+```

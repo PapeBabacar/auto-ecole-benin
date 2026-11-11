@@ -25,6 +25,7 @@
   --f-display: "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif;
   --f-text: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -44,7 +45,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
-body { background: var(--paper); color: var(--ink); font-family: var(--f-text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-text); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; caret-color: var(--green); }
+html { scrollbar-color: color-mix(in srgb, var(--ink-2) 55%, transparent) var(--paper-2); accent-color: var(--green); }
+::selection { background: var(--yellow); color: #1b1600; }
+a { text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--night); }
 .c { max-width: 1180px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
 h1, h2, h3, h4 { font-family: var(--f-display); margin: 0; text-wrap: balance; letter-spacing: -0.005em; }
@@ -55,12 +59,21 @@ a { color: inherit; }
 .muted { color: var(--ink-2); }
 :focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
 
-.btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; padding: 13px 22px; border-radius: 4px; border: 1.5px solid transparent; text-decoration: none; cursor: pointer; transition: background .15s, color .15s, border-color .15s; line-height: 1.1; }
+.btn { display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; padding: 13px 22px; border-radius: 4px; border: 1.5px solid transparent; text-decoration: none; cursor: pointer; transition: background-color 160ms ease, border-color 160ms ease, transform 140ms var(--ease-out); line-height: 1.1; }
+.btn:active, .btn-exam:active, .filter:active, .day:active, .slot:active:not(:disabled), .opt:active:not(:disabled) { transform: scale(0.97); }
+.btn svg { transition: transform 200ms var(--ease-out); }
+.btn-exam, .filter, .day, .slot, .opt { transition: transform 140ms var(--ease-out), border-color 160ms ease, background-color 160ms ease; }
 .btn-primary { background: var(--green); color: var(--green-ink); }
-.btn-primary:hover { background: color-mix(in srgb, var(--green) 85%, #000); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { background: color-mix(in srgb, var(--green) 85%, #000); }
+  .btn:hover svg { transform: translateX(3px); }
+  .btn-line:hover { border-color: var(--ink); }
+  .nav a:hover { color: var(--ink); background-size: 100% 1.5px; }
+  .sign-card:hover svg { transform: translateY(-2px); }
+  .agency:hover h3 { color: var(--green); }
+}
 .btn-line { border-color: var(--rule); color: var(--ink); background: var(--paper); }
-.btn-line:hover { border-color: var(--ink); }
-.btn svg { width: 16px; height: 16px; }
+.btn svg { width: 16px; height: 16px; flex: none; }
 
 /* Barre d'infos */
 .util { background: var(--night); color: var(--night-ink); font-size: .82rem; }
@@ -70,15 +83,14 @@ a { color: inherit; }
 @media (max-width: 700px) { .util .hide-s { display: none; } }
 
 /* En-tête */
-.head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--paper) 94%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule); }
+.head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid var(--rule); }
 .head .c { display: flex; align-items: center; gap: 32px; padding-block: 14px; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: none; }
 .logo svg { width: 38px; height: 38px; }
 .logo b { font-family: var(--f-display); font-size: 1.45rem; font-weight: 800; letter-spacing: -.01em; line-height: 1; display: block; }
 .logo small { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-top: 3px; }
 .nav { display: flex; gap: 26px; font-size: .95rem; font-weight: 500; margin-left: 8px; }
-.nav a { text-decoration: none; color: var(--ink-2); padding-block: 6px; }
-.nav a:hover { color: var(--ink); }
+.nav a { text-decoration: none; color: var(--ink-2); padding-block: 6px; background: linear-gradient(currentColor, currentColor) left bottom / 0 1.5px no-repeat; transition: background-size 220ms var(--ease-out), color 160ms ease; }
 .head .right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
 .head .btn { padding: 10px 16px; font-size: .98rem; }
 @media (max-width: 1000px) { .nav, .head .login { display: none; } }
@@ -89,16 +101,22 @@ a { color: inherit; }
 .hero .c { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: center; padding-block: 64px 60px; }
 .hero h1 { font-size: clamp(2.5rem, 5.2vw, 4.3rem); font-weight: 800; line-height: .98; letter-spacing: -.02em; }
 .hero h1 em { font-style: normal; color: var(--green); }
+.hero .where { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: .92rem; color: var(--ink-2); }
+.hero .where b { color: var(--ink); font-weight: 600; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } }
+@keyframes lift { from { opacity: 0; transform: translateY(40px) rotate(-2deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] > * { animation: rise 700ms var(--ease-out) both; }
+  [data-enter] > :nth-child(2) { animation-delay: 70ms; } [data-enter] > :nth-child(3) { animation-delay: 140ms; } [data-enter] > :nth-child(4) { animation-delay: 210ms; }
+  .device .phone { animation: lift 900ms 120ms var(--ease-out) both; }
+  .float-card { animation: rise 600ms 650ms var(--ease-out) both; }
+}
 .hero h1 .soft { color: var(--ink-2); font-weight: 600; }
 .hero .intro { font-size: 1.15rem; color: var(--ink-2); max-width: 34em; margin-top: 22px; }
 .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.hero .facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 8px 40px; margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--rule); }
-.hero .facts div { font-size: .88rem; color: var(--ink-2); line-height: 1.35; }
-.hero .facts b { display: block; font-family: var(--f-display); font-size: 1.6rem; color: var(--ink); font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
 @media (max-width: 900px) {
   .hero { background: var(--paper); }
   .hero .c { grid-template-columns: 1fr; padding-block: 40px 56px; gap: 48px; }
-  .hero .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 16px; }
 }
 
 /* Téléphone */
@@ -120,7 +138,7 @@ a { color: inherit; }
 .app .tile svg { width: 32px; height: 32px; flex: none; }
 .app .tile b { display: block; font-size: 12px; line-height: 1.3; }
 .app .tile span { color: #5b6862; font-size: 10.5px; }
-.app .tile .go { margin-left: auto; color: #0b6b46; font-weight: 700; font-size: 16px; }
+.app .tile .go { margin-left: auto; width: 14px; height: 14px; flex: none; }
 .app .tabs { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid #e2e6e1; padding-top: 8px; text-align: center; font-size: 9.5px; color: #75817b; }
 .app .tabs i { display: block; width: 18px; height: 18px; margin: 0 auto 2px; border-radius: 5px; background: #d8ddd8; }
 .app .tabs .on { color: #0b6b46; font-weight: 700; }
@@ -135,15 +153,13 @@ a { color: inherit; }
 .sec.alt { background: var(--paper-2); }
 .sec-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px 64px; align-items: end; margin-bottom: 48px; }
 .sec-head p { color: var(--ink-2); font-size: 1.06rem; max-width: 36em; }
-.kicker { display: flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
-.kicker::before { content: ""; width: 18px; height: 3px; background: var(--yellow); }
 @media (max-width: 860px) { .sec { padding-block: 64px; } .sec-head { grid-template-columns: 1fr; margin-bottom: 32px; } }
 
 /* Parcours */
 .path { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--ink); margin: 0; padding: 0; }
 .path li { list-style: none; padding: 22px 24px 8px 0; display: grid; gap: 10px; align-content: start; }
 .path li + li { padding-left: 24px; border-left: 1px solid var(--rule); }
-.path .when { font-family: var(--f-mono); font-size: .76rem; color: var(--ink-2); }
+.path .when { font-size: .82rem; font-weight: 600; color: var(--green); }
 .path p { color: var(--ink-2); font-size: .95rem; }
 @media (max-width: 900px) { .path { grid-template-columns: 1fr 1fr; } .path li:nth-child(3) { border-left: 0; padding-left: 0; } .path li:nth-child(n+3) { border-top: 1px solid var(--rule); } }
 @media (max-width: 540px) { .path { grid-template-columns: 1fr; } .path li + li { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); } }
@@ -196,7 +212,7 @@ a { color: inherit; }
 .end .verdict { display: inline-block; margin-top: 10px; font-weight: 700; font-size: .85rem; padding: 4px 10px; border-radius: 4px; }
 .end ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: .9rem; }
 .end li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
-.end li i { font-style: normal; font-weight: 700; }
+.end li svg { width: 18px; height: 18px; margin-top: 2px; }
 @media (max-width: 960px) { .exam-wrap { grid-template-columns: 1fr; gap: 28px; } .exam-wrap aside { position: static; } }
 @media (max-width: 640px) { .exam-scene { grid-template-columns: 1fr; } .scene-img { min-height: 210px; } .qa { padding: 20px 18px; } .end { grid-template-columns: 1fr; padding: 24px; } }
 
@@ -208,7 +224,7 @@ a { color: inherit; }
 .filter .n { font-family: var(--f-mono); font-size: .75rem; opacity: .6; margin-left: 6px; }
 .signs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
 .sign-card { background: var(--paper); padding: 24px 14px 16px; display: grid; gap: 12px; justify-items: center; text-align: center; align-content: start; }
-.sign-card svg { width: 74px; height: 74px; }
+.sign-card svg { width: 74px; height: 74px; transition: transform 220ms var(--ease-out); }
 .sign-card b { font-size: .9rem; line-height: 1.3; font-weight: 600; }
 .sign-card span { font-size: .72rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; }
 @media (max-width: 420px) { .signs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -217,7 +233,7 @@ a { color: inherit; }
 .drive { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 56px; align-items: start; }
 .agencies { border-top: 2px solid var(--ink); }
 .agency { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 20px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
-.agency h3 { font-size: 1.2rem; }
+.agency h3 { font-size: 1.2rem; transition: color 160ms ease; }
 .agency .addr { color: var(--ink-2); font-size: .93rem; grid-column: 1; }
 .agency .hrs { grid-row: 1 / span 2; grid-column: 2; text-align: right; font-size: .85rem; color: var(--ink-2); line-height: 1.5; font-variant-numeric: tabular-nums; }
 .agency .tag { display: inline-block; font-family: var(--f-text); font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--green); margin-left: 10px; vertical-align: 3px; }
@@ -244,7 +260,8 @@ a { color: inherit; }
 .book .total { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px dashed var(--rule); flex-wrap: wrap; }
 .book .total b { font-family: var(--f-display); font-size: 1.5rem; font-variant-numeric: tabular-nums; }
 .book .btn { justify-content: center; }
-.ok-msg { background: var(--green-tint); border-left: 3px solid var(--green); padding: 12px 14px; font-size: .92rem; border-radius: 0 5px 5px 0; }
+.ok-msg { background: var(--green-tint); color: var(--ink); padding: 12px 14px; font-size: .92rem; border-radius: 5px; display: grid; grid-template-columns: 20px 1fr; gap: 10px; }
+.ok-msg svg { width: 20px; height: 20px; margin-top: 1px; }
 @media (max-width: 960px) { .drive { grid-template-columns: 1fr; gap: 40px; } }
 @media (max-width: 480px) { .pays { grid-template-columns: 1fr; } .agency { grid-template-columns: 1fr; } .agency .hrs { grid-row: auto; grid-column: 1; text-align: left; } }
 
@@ -260,7 +277,6 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
 .tarifs .amt { font-family: var(--f-display); font-weight: 700; font-size: 1.35rem; font-variant-numeric: tabular-nums; }
 .tarifs .amt small { font-family: var(--f-text); font-size: .72rem; color: var(--ink-2); font-weight: 600; margin-left: 4px; }
 .tarifs tr.hl td { background: var(--green-tint); }
-.tarifs tr.hl td:first-child { box-shadow: inset 3px 0 0 var(--green); }
 .badge { display: inline-block; font-size: .66rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; background: var(--yellow); color: #1b1600; padding: 2px 7px; border-radius: 3px; margin-left: 8px; vertical-align: 2px; }
 .pay-note { background: var(--night); color: var(--night-ink); border-radius: 8px; padding: 26px; display: grid; gap: 16px; }
 .pay-note h3 { font-size: 1.35rem; }
@@ -347,8 +363,8 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
 
 <div class="util">
   <div class="c">
-    <span class="proto">Prototype de présentation · contenus et tarifs à valider</span>
-    <span class="hide-s">Lun – Sam · 7 h 30 – 19 h · +229 01 00 00 00 00</span>
+    <span class="proto">Prototype de présentation · nom, contenus et tarifs à valider</span>
+    <span class="hide-s">Agence Étoile Rouge · lun – sam, 7 h 30 – 19 h</span>
   </div>
 </div>
 
@@ -375,19 +391,15 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
 <main id="top">
   <section class="hero">
     <div class="c">
-      <div>
-        <h1>Le code s'apprend sur <em>ton téléphone</em>. <span class="soft">La conduite, avec nos moniteurs.</span></h1>
-        <p class="intro">Révise entre deux cours ou dans le bus. Quand tes examens blancs sont bons, ton moniteur t'inscrit à l'examen. Tes heures de conduite se réservent en ligne, à Cotonou, Calavi ou Porto-Novo.</p>
+      <div data-enter>
+        <h1>Auto-école à Cotonou, avec <em>le code de la route sur ton téléphone</em></h1>
+        <p class="intro">Tu révises le code dans l'application, entre deux cours ou dans le bus. Tes leçons de conduite se font avec nos moniteurs et se réservent en ligne. Quand tes examens blancs sont bons, on t'inscrit à l'examen.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#code">Faire un test gratuit
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           <a class="btn btn-line" href="#tarifs">Voir les tarifs</a>
         </div>
-        <div class="facts">
-          <div><b>1 200</b>questions corrigées</div>
-          <div><b>20 s</b>par question, comme à l'examen</div>
-          <div><b>3 fois</b>sans frais, par Mobile Money</div>
-        </div>
+        <p class="where"><span><b>Code en ligne</b> 15 000 FCFA</span><span><b>Permis B</b> 175 000 FCFA, en 3 fois</span><span><b>Départs</b> Cotonou, Calavi, Porto-Novo</span></p>
       </div>
 
       <div class="device">
@@ -404,21 +416,25 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
               </div>
               <div class="tile">
                 <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#fdf3d3"/><polygon points="17,7 27,25 7,25" fill="#fff" stroke="#c8202a" stroke-width="2.6" stroke-linejoin="round"/></svg>
-                <div><b>Reprendre la série 12</b><span>Intersections · 18/40</span></div><span class="go">›</span>
+                <div><b>Reprendre la série 12</b><span>Intersections · 18/40</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <div class="tile">
                 <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#e5f1eb"/><rect x="9" y="10" width="16" height="15" rx="2" fill="none" stroke="#0b6b46" stroke-width="2"/><path d="M9 14h16M13 8v4M21 8v4" stroke="#0b6b46" stroke-width="2"/></svg>
-                <div><b>Conduite · jeu. 14 nov.</b><span>14 h · Étoile Rouge · Rodrigue</span></div><span class="go">›</span>
+                <div><b>Conduite · jeu. 14 nov.</b><span>14 h · Étoile Rouge · Rodrigue</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <div class="tile">
                 <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#e4ecf7"/><path d="M10 22l5-6 4 4 5-8" fill="none" stroke="#0d4fa0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <div><b>Dernier examen blanc</b><span>36/40 · hier, 21 h 10</span></div><span class="go">›</span>
+                <div><b>Dernier examen blanc</b><span>36/40 · hier, 21 h 10</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="tile">
+                <svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="9" fill="#fdf3d3"/><rect x="8" y="11" width="18" height="12" rx="2" fill="none" stroke="#8a6a00" stroke-width="2"/><path d="M8 15h18" stroke="#8a6a00" stroke-width="2"/></svg>
+                <div><b>Échéance 3 sur 3</b><span>50 000 FCFA · avant l'examen</span></div><svg class="go" viewBox="0 0 14 14" aria-hidden="true"><path d="M5 3l4 4-4 4" fill="none" stroke="#0b6b46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <div class="tabs"><span class="on"><i></i>Accueil</span><span><i></i>Code</span><span><i></i>Conduite</span><span><i></i>Profil</span></div>
             </div>
           </div>
         </div>
-        <div class="float-card"><span class="dot"></span><span><b>Paiement reçu</b><br>50 000 FCFA via MTN MoMo</span></div>
+        <div class="float-card"><span class="dot"></span><span><b>Paiement reçu</b><br>55 000 FCFA via MTN MoMo</span></div>
       </div>
     </div>
   </section>
@@ -426,8 +442,8 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   <section class="sec" aria-labelledby="t-parcours">
     <div class="c">
       <div class="sec-head">
-        <div><div class="kicker">Le parcours</div><h2 id="t-parcours">De l'inscription au permis en 10 semaines environ</h2></div>
-        <p>Le dossier se fait entièrement en ligne. Tu te déplaces seulement pour tes leçons de conduite et le jour de l'examen.</p>
+        <div><h2 id="t-parcours">Le parcours, de l'inscription au permis</h2></div>
+        <p>Compte environ dix semaines. Le dossier se fait entièrement en ligne : tu te déplaces seulement pour tes leçons de conduite et le jour de l'examen.</p>
       </div>
       <ol class="path">
         <li><span class="when">Jour 1</span><h3>Inscription</h3><p>Ton numéro de téléphone, une photo de ta pièce d'identité et ta photo d'identité. Le dossier est vérifié dans la journée.</p></li>
@@ -441,12 +457,12 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   <section class="sec alt" id="code" aria-labelledby="t-code">
     <div class="c exam-wrap">
       <aside>
-        <div><div class="kicker">Simulateur</div><h2 id="t-code">Entraîne-toi dans les conditions de l'examen</h2></div>
+        <div><h2 id="t-code">Entraîne-toi dans les conditions de l'examen</h2></div>
         <p>Même déroulé que le jour J : une situation, 20 secondes, une ou plusieurs bonnes réponses. Tu valides, puis tu lis la correction.</p>
         <div class="keys-legend">
           <div><span class="kbd">A</span><span class="kbd">B</span><span class="kbd">C</span><span class="kbd">D</span>&nbsp;choisir une réponse</div>
           <div><span class="kbd">Entrée</span>&nbsp;valider</div>
-          <div>Série d'essai de 8 questions. L'application en compte plus de 1 200.</div>
+          <div>Série d'essai de 8 questions. Dans l'application, une série en compte 40.</div>
         </div>
       </aside>
       <div class="exam" id="exam" aria-live="polite"></div>
@@ -456,7 +472,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   <section class="sec" id="panneaux" aria-labelledby="t-signs">
     <div class="c">
       <div class="sec-head">
-        <div><div class="kicker">Révisions</div><h2 id="t-signs">Les panneaux à connaître</h2></div>
+        <div><h2 id="t-signs">Les panneaux du code, par famille</h2></div>
         <p>La forme et la couleur d'un panneau indiquent déjà sa famille : triangle pour un danger, rond rouge pour une interdiction, rond bleu pour une obligation, carré bleu pour une indication.</p>
       </div>
       <div class="filters" role="group" aria-label="Filtrer les panneaux" id="filters"></div>
@@ -467,7 +483,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   <section class="sec alt" id="conduite" aria-labelledby="t-drive">
     <div class="c">
       <div class="sec-head">
-        <div><div class="kicker">Leçons de conduite</div><h2 id="t-drive">Choisis ton point de départ et ton heure</h2></div>
+        <div><h2 id="t-drive">Leçons de conduite à Cotonou, Calavi et Porto-Novo</h2></div>
         <p>Le moniteur te retrouve au point de rendez-vous. Rappel par SMS la veille, annulation gratuite jusqu'à 24 h avant.</p>
       </div>
       <div class="drive">
@@ -512,7 +528,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   <section class="sec" id="tarifs" aria-labelledby="t-tarifs">
     <div class="c">
       <div class="sec-head">
-        <div><div class="kicker">Tarifs</div><h2 id="t-tarifs">Le prix de ton permis, sans surprise</h2></div>
+        <div><h2 id="t-tarifs">Tarifs du code et du permis</h2></div>
         <p>Les frais d'inscription à l'examen sont compris dans les formules permis A et B.</p>
       </div>
       <div class="price-grid">
@@ -545,8 +561,8 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   <section class="sec alt" id="ecoles" aria-labelledby="t-pro">
     <div class="c pro-grid">
       <div>
-        <div class="kicker">Pour les moniteurs</div>
-        <h2 id="t-pro">Tous tes élèves sur un seul écran</h2>
+        
+        <h2 id="t-pro">L'espace moniteur : tous les élèves sur un écran</h2>
         <ul class="pro-list">
           <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--green-tint)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Savoir qui est prêt</b>Les résultats au code remontent automatiquement. Tu vois tout de suite qui peut passer l'examen.</span></li>
           <li><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="var(--green-tint)"/><path d="M6.5 11.5l3 3 6-7" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Un agenda partagé</b>Tu ouvres tes créneaux, les élèves réservent. Plus d'appels pour déplacer une leçon.</span></li>
@@ -579,20 +595,18 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
             </div>
           </div>
         </div>
-        <p class="sample">Élèves fictifs, pour l'exemple.</p>
-      </div>
+              </div>
     </div>
   </section>
 
   <section class="sec" aria-labelledby="t-faq">
     <div class="c faq-grid">
       <div>
-        <div class="kicker">Questions fréquentes</div>
-        <h2 id="t-faq">Avant de t'inscrire</h2>
+        
+        <h2 id="t-faq">Questions avant l'inscription</h2>
         <div class="contact-box">
-          <span class="muted">Une autre question ? Appelle-nous ou écris sur WhatsApp.</span>
-          <span class="num">+229 01 00 00 00 00</span>
-          <span class="muted" style="font-size:.8rem">Numéro d'exemple</span>
+          <span class="muted">Une autre question ? Passe à l'agence d'Étoile Rouge ou écris-nous sur WhatsApp.</span>
+          <a class="btn btn-line" href="#conduite" style="justify-self:start">Voir les agences</a>
         </div>
       </div>
       <div class="faq">
@@ -607,7 +621,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
 
   <section class="cta">
     <div class="c">
-      <div><h2>Commence le code ce soir</h2><p>Inscription en 2 minutes. Les 50 premières questions sont gratuites.</p></div>
+      <div><h2>Commence le code en ligne ce soir</h2><p>L'inscription se fait depuis ton téléphone. La série d'essai est gratuite.</p></div>
       <a class="btn" href="#code">Faire un test gratuit</a>
     </div>
   </section>
@@ -628,7 +642,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
       <div><h4>Agences</h4><ul><li>Cotonou · Étoile Rouge</li><li>Cotonou · Akpakpa</li><li>Abomey-Calavi</li><li>Porto-Novo</li></ul></div>
       <div><h4>Aide</h4><ul><li><a href="#t-faq">Questions fréquentes</a></li><li><a href="#ecoles">Espace moniteur</a></li><li>Conditions générales</li><li>Confidentialité</li></ul></div>
     </div>
-    <div class="legal"><span>© 2026 Volant Bénin · Agrément n° à compléter</span><span>Prototype · nom, numéros et tarifs provisoires</span></div>
+    <div class="legal"><span>© 2026 Volant Bénin</span><span>Prototype : nom, tarifs et élèves fictifs, à remplacer</span></div>
   </div>
 </footer>
 
@@ -715,6 +729,8 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     { img: { sign: 'sens' }, q: 'Ce panneau signifie :', a: ['Stationnement interdit', 'Sens interdit à tout véhicule', 'Route barrée pour travaux'], c: [1], e: 'Disque rouge et barre blanche : sens interdit. On ne s\'engage pas dans cette voie.' },
     { img: { sign: 'prioritaire' }, q: 'Je circule sous ce panneau. Aux prochaines intersections :', a: ['Je dois céder le passage à droite', 'Les véhicules des routes qui croisent doivent me céder le passage', 'Je dois m\'arrêter'], c: [1], e: 'Le losange jaune signale une route prioritaire. La priorité à droite ne s\'applique plus jusqu\'au panneau de fin.' }
   ];
+  const ICON_OK = '<svg viewBox="0 0 18 18" aria-label="Juste"><circle cx="9" cy="9" r="8" fill="#3fbf86"/><path d="M5.5 9.2l2.3 2.3 4.7-5" fill="none" stroke="#04130c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const ICON_KO = '<svg viewBox="0 0 18 18" aria-label="Faux"><circle cx="9" cy="9" r="8" fill="#f0565d"/><path d="M6.2 6.2l5.6 5.6M11.8 6.2l-5.6 5.6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>';
   const DUR = 20, L = 'ABCD';
   const box = document.getElementById('exam');
   let i = 0, sel = new Set(), left = DUR, timer = null, done = false, results = [];
@@ -773,7 +789,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
           <span class="verdict" style="background:${ok ? '#3fbf86' : '#f2c230'};color:#06140e">${ok ? 'Très bon niveau' : 'À retravailler'}</span>
           <p style="margin-top:16px;opacity:.8">Une vraie série compte 40 questions. Dans l'application, tes erreurs reviennent automatiquement dans les séries suivantes.</p>
           <div style="margin-top:18px"><button type="button" class="btn-exam val" id="again">Refaire la série</button></div></div>
-        <ol>${Q.map((q, k) => `<li><i style="color:${results[k] ? '#3fbf86' : '#f0565d'}">${results[k] ? '✓' : '✗'}</i><span>${q.q}</span></li>`).join('')}</ol>
+        <ol>${Q.map((q, k) => `<li>${results[k] ? ICON_OK : ICON_KO}<span>${q.q}</span></li>`).join('')}</ol>
       </div></div>`;
     box.querySelector('#again').addEventListener('click', () => { i = 0; results = []; start(); });
   }
@@ -810,10 +826,10 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   document.getElementById('book').addEventListener('submit', e => {
     e.preventDefault();
     const msg = document.getElementById('book-ok'); msg.hidden = false;
-    if (!slot) { msg.textContent = 'Choisis une heure de début pour continuer.'; return; }
+    if (!slot) { msg.innerHTML = '<span></span><span>Choisis une heure de début pour continuer.</span>'; return; }
     const d = DAYS.find(x => x[1] === day);
     const pay = document.querySelector('input[name="pay"]:checked').value;
-    msg.innerHTML = `<b>Leçon réservée (démonstration).</b> ${d[2]} ${day} novembre à ${fmt(slot)}, départ ${document.getElementById('b-lieu').value}. Paiement : ${pay}. Dans la version réelle, la confirmation arrive par SMS.`;
+    msg.innerHTML = `<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Leçon réservée (démonstration).</b> ${d[2]} ${day} novembre à ${fmt(slot)}, départ ${document.getElementById('b-lieu').value}. Paiement : ${pay}. Dans la version réelle, la confirmation arrive par SMS.</span>`;
   });
 })();
 </script>
