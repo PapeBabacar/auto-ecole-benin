@@ -27,14 +27,6 @@
   --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #121a17; --paper-2: #18221e; --ink: #e8ece8; --ink-2: #a3b0aa; --rule: #2a3631;
-    --green: #2fa774; --green-ink: #06140e; --green-tint: #15302a; --yellow: #f2c230; --red: #f0565d; --red-tint: #3a1c1e; --blue: #5d97e6;
-    --night: #0a100d; --night-ink: #eef2ee; --night-2: #141e1a;
-    color-scheme: dark;
-  }
-}
 :root[data-theme="dark"] {
   --paper: #121a17; --paper-2: #18221e; --ink: #e8ece8; --ink-2: #a3b0aa; --rule: #2a3631;
   --green: #2fa774; --green-ink: #06140e; --green-tint: #15302a; --yellow: #f2c230; --red: #f0565d; --red-tint: #3a1c1e; --blue: #5d97e6;
@@ -516,6 +508,13 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   .js-motion .compare:not(.in) td.us svg { transform: none; }
   .ok-msg path { stroke-dashoffset: 0; }
 }
+.theme-btn { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 4px; border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); cursor: pointer; transition: border-color 160ms ease, transform 140ms var(--ease-out); }
+.theme-btn:active { transform: scale(0.94); }
+.theme-btn svg { width: 18px; height: 18px; transition: transform 400ms var(--ease-out), opacity 200ms ease; }
+.theme-btn .sun { display: none; }
+:root[data-theme="dark"] .theme-btn .moon { display: none; }
+:root[data-theme="dark"] .theme-btn .sun { display: block; }
+@media (hover: hover) and (pointer: fine) { .theme-btn:hover { border-color: var(--ink); } .theme-btn:hover svg { transform: rotate(-20deg); } }
 </style>
 
 <div class="util">
@@ -539,6 +538,10 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
       <a href="#tarifs">Tarifs</a>
     </nav>
     <div class="right">
+      <button type="button" class="theme-btn" id="theme-btn" aria-label="Passer en mode sombre" title="Mode sombre">
+        <svg class="moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 12.6A6.5 6.5 0 017.4 4.5a6.5 6.5 0 108.1 8.1z" fill="currentColor"/></svg>
+        <svg class="sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4"/></g></svg>
+      </button>
       <a class="btn btn-line login" href="#espace">Se connecter</a>
       <a class="btn btn-primary" href="#tarifs">S'inscrire</a>
     </div>
@@ -1228,5 +1231,20 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     for (let k = 0; k < n; k++) { const i = document.createElement('i'); i.style.left = Math.random() * 100 + '%'; i.style.background = cols[k % cols.length]; i.style.setProperty('--x', (Math.random() * 160 - 80) + 'px'); i.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg'); i.style.setProperty('--t', (1100 + Math.random() * 900) + 'ms'); i.style.animationDelay = Math.random() * 200 + 'ms'; b.appendChild(i); }
     box.appendChild(b); setTimeout(() => b.remove(), 2400);
   };
+
+  /* ---------- Thème clair / sombre (clair par défaut) ---------- */
+  const tb = document.getElementById('theme-btn');
+  const applyTheme = t => {
+    if (t === 'dark') root.setAttribute('data-theme', 'dark'); else root.setAttribute('data-theme', 'light');
+    const dark = t === 'dark';
+    tb.setAttribute('aria-label', dark ? 'Passer en mode clair' : 'Passer en mode sombre');
+    tb.title = dark ? 'Mode clair' : 'Mode sombre';
+  };
+  let saved = null; try { saved = localStorage.getItem('vb-theme'); } catch (e) {}
+  applyTheme(saved === 'dark' ? 'dark' : 'light');
+  tb.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next); try { localStorage.setItem('vb-theme', next); } catch (e) {}
+  });
 })();
 </script>
