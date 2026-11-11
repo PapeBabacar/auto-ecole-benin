@@ -430,6 +430,92 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
 .compare td.us { background: var(--green-tint); }
 .compare svg { width: 20px; height: 20px; vertical-align: middle; }
 .compare .part { font-size: .8rem; color: var(--ink-2); }
+/* ---------- Animation et interactions ---------- */
+/* Route de progression : une voiture avance au fil de la page */
+.roadbar { position: fixed; left: 0; right: 0; top: env(safe-area-inset-top, 0px); height: 6px; z-index: 40; background: var(--night); pointer-events: none; }
+.roadbar::before { content: ""; position: absolute; left: 0; right: 0; top: 2.5px; height: 1px; background: repeating-linear-gradient(90deg, rgba(242,194,48,.55) 0 10px, transparent 10px 18px); }
+.roadbar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: var(--yellow); transform-origin: left; transform: scaleX(0); }
+.roadbar .car { position: absolute; top: -6px; left: 0; width: 26px; height: 16px; transform: translateX(-30px); }
+.head { top: calc(env(safe-area-inset-top, 0px) + 6px); }
+
+/* Révélation douce des blocs au défilement */
+.js-motion .rv { opacity: 0; transform: translateY(18px); transition: opacity 600ms var(--ease-out), transform 700ms var(--ease-out); transition-delay: var(--d, 0ms); }
+.js-motion .rv.in { opacity: 1; transform: none; }
+
+/* Survol des cartes */
+@media (hover: hover) and (pointer: fine) {
+  .panel, .price-grid .pay-note, .lang, .agency, .path li { transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out); }
+  .panel:hover, .lang:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -18px rgba(10,30,20,.35); }
+  .card:hover { border-color: var(--yellow); }
+}
+
+/* Téléphone vivant */
+.phone .ready .ring-p { transition: stroke-dasharray 1400ms var(--ease-out); }
+.phone .tile { animation: tileIn 600ms var(--ease-out) both; }
+.phone .tile:nth-of-type(1) { animation-delay: 700ms; } .phone .tile:nth-of-type(2) { animation-delay: 800ms; } .phone .tile:nth-of-type(3) { animation-delay: 900ms; } .phone .tile:nth-of-type(4) { animation-delay: 1000ms; }
+@keyframes tileIn { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+.float-card.ping { animation: ping 520ms var(--ease-out); }
+@keyframes ping { 0% { transform: translateY(8px) scale(.94); opacity: 0; } 60% { transform: translateY(-3px) scale(1.02); opacity: 1; } 100% { transform: none; } }
+.float-card .dot { animation: pulse 2s ease-out infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 45%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+
+/* Panneaux qui se retournent */
+.sign-card { perspective: 900px; cursor: pointer; padding: 0; background: transparent; border: 0; font: inherit; color: inherit; text-align: center; }
+.sign-card { display: block; }
+.sign-card .flip, .sign-card .face { font-size: inherit; color: inherit; text-transform: none; letter-spacing: normal; }
+.sign-card .back { color: var(--night-ink); }
+.sign-card .flip { position: relative; display: grid; height: 100%; min-height: 196px; transform-style: preserve-3d; transition: transform 600ms var(--ease-out); }
+.sign-card .face { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--paper); padding: 22px 14px 16px; display: grid; gap: 10px; justify-items: center; align-content: start; }
+.sign-card .back { transform: rotateY(180deg); background: var(--night); color: var(--night-ink); align-content: center; text-align: left; }
+.sign-card .back b { font-family: var(--f-display); font-size: 1.05rem; color: var(--yellow); }
+.sign-card .back p { font-size: .86rem; line-height: 1.45; opacity: .9; }
+.sign-card[aria-pressed="true"] .flip { transform: rotateY(180deg); }
+.sign-card:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
+.signs-hint { font-size: .88rem; color: var(--ink-2); margin: -14px 0 18px; }
+.signs .sign-card { animation: signIn 420ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 28ms); }
+@keyframes signIn { from { opacity: 0; transform: translateY(10px) scale(.97); } }
+
+/* Simulateur : réactions */
+.opt.right { animation: pop 380ms var(--ease-out); }
+.opt.wrong { animation: shake 360ms ease-in-out; }
+@keyframes pop { 40% { transform: scale(1.025); } }
+@keyframes shake { 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+.corr { animation: tileIn 360ms var(--ease-out) both; }
+.exam-scene .scene-img svg.sign { animation: signDrop 600ms var(--ease-out) both; transform-origin: 50% 100%; }
+@keyframes signDrop { from { opacity: 0; transform: translateY(-16px) rotate(-4deg); } }
+.exam { position: relative; }
+.burst { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
+.burst i { position: absolute; width: 8px; height: 12px; border-radius: 2px; top: -14px; animation: fall var(--t, 1400ms) cubic-bezier(.2,.6,.3,1) forwards; }
+@keyframes fall { to { transform: translate(var(--x, 0px), 520px) rotate(var(--r, 360deg)); opacity: 0; } }
+.end .score { animation: tileIn 500ms var(--ease-out) both; }
+.bar20 span { transition: width 1100ms var(--ease-out); }
+
+/* Courbe des examens qui se trace */
+.chart .line { stroke-dasharray: 700; stroke-dashoffset: 0; }
+.js-motion .chart:not(.drawn) .line { stroke-dashoffset: 700; }
+.chart .line { transition: stroke-dashoffset 1600ms var(--ease-out); }
+.js-motion .chart:not(.drawn) .area, .js-motion .chart:not(.drawn) .pts { opacity: 0; }
+.chart .area, .chart .pts { transition: opacity 700ms ease 900ms; }
+.steps-list li { transition: background-color 200ms ease; }
+
+/* Comparatif : les coches apparaissent */
+.js-motion .compare:not(.in) td.us svg { transform: scale(0); }
+.compare td.us svg { transition: transform 420ms cubic-bezier(.34,1.56,.64,1); transition-delay: calc(var(--i, 0) * 70ms); }
+
+/* Réservation : coche dessinée */
+.ok-msg { animation: tileIn 420ms var(--ease-out) both; }
+.ok-msg path { stroke-dasharray: 20; stroke-dashoffset: 20; animation: draw 500ms 150ms var(--ease-out) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .rv { opacity: 1; transform: none; }
+  .sign-card .flip { transition: none; }
+  .burst { display: none; }
+  .js-motion .chart:not(.drawn) .line { stroke-dashoffset: 0; }
+  .js-motion .chart:not(.drawn) .area, .js-motion .chart:not(.drawn) .pts { opacity: 1; }
+  .js-motion .compare:not(.in) td.us svg { transform: none; }
+  .ok-msg path { stroke-dashoffset: 0; }
+}
 </style>
 
 <div class="util">
@@ -557,12 +643,11 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
             </g>
             <text x="30" y="24" text-anchor="end">20</text><text x="30" y="74" text-anchor="end">15</text><text x="30" y="124" text-anchor="end">10</text><text x="30" y="174" text-anchor="end">5</text>
             <line x1="40" y1="80" x2="550" y2="80" stroke="var(--red)" stroke-width="2" stroke-dasharray="6 5"/>
-            <text x="548" y="74" text-anchor="end" style="fill:var(--red);font-weight:700">14 / 20 : réussite</text>
-            <polygon fill="var(--green-tint)" points="50,180 50,130 105,110 160,100 215,110 270,90 325,70 380,80 435,60 490,50 545,50 545,180"/>
+                        <polygon fill="var(--green-tint)" points="50,180 50,130 105,110 160,100 215,110 270,90 325,70 380,80 435,60 490,50 545,50 545,180"/>
             <polyline fill="none" stroke="var(--green)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="50,130 105,110 160,100 215,110 270,90 325,70 380,80 435,60 490,50 545,50"/>
             <g fill="var(--paper)" stroke="var(--green)" stroke-width="2.5"><circle cx="50" cy="130" r="4"/><circle cx="105" cy="110" r="4"/><circle cx="160" cy="100" r="4"/><circle cx="215" cy="110" r="4"/><circle cx="270" cy="90" r="4"/><circle cx="325" cy="70" r="4"/><circle cx="380" cy="80" r="4"/><circle cx="435" cy="60" r="4"/><circle cx="490" cy="50" r="4"/></g>
             <circle cx="545" cy="50" r="6" fill="var(--green)"/>
-            <text x="50" y="200" text-anchor="middle">1</text><text x="545" y="200" text-anchor="middle">10</text>
+            <text x="548" y="74" text-anchor="end" style="fill:var(--red);font-weight:700">14 / 20 : réussite</text><text x="50" y="200" text-anchor="middle">1</text><text x="545" y="200" text-anchor="middle">10</text>
           </svg>
           <div class="weak"><span>À revoir : premiers secours</span><span>À revoir : croisements</span></div>
         </div>
@@ -613,6 +698,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
         <p>La forme et la couleur d'un panneau indiquent déjà sa famille : triangle pour un danger, rond rouge pour une interdiction, rond bleu pour une obligation, carré bleu pour une indication.</p>
       </div>
       <div class="filters" role="group" aria-label="Filtrer les panneaux" id="filters"></div>
+      <p class="signs-hint">Touche un panneau pour le retourner et lire ce qu'il signifie.</p>
       <div class="signs" id="signs"></div>
     </div>
   </section>
@@ -852,10 +938,36 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
   const total = CATALOG.reduce((n, c) => n + c[2].length, 0);
   const fbtn = (id, label, n) => `<button type="button" class="filter" data-f="${id}" aria-pressed="${id === cur}">${label}<span class="n">${n}</span></button>`;
   function drawFilters() { filters.innerHTML = fbtn('all', 'Tous', total) + CATALOG.map(c => fbtn(c[0], c[1], c[2].length)).join(''); }
+  const MEANING = {
+    danger: 'Un danger sans panneau dédié : ralentis et cherche ce qu\'il annonce.',
+    virage: 'Virage serré à droite : réduis ta vitesse avant d\'y entrer.',
+    dosane: 'Ralentisseur sur la chaussée : passe-le doucement.',
+    retreci: 'La route se resserre : laisse passer si l\'espace manque.',
+    feux: 'Feux tricolores plus loin : prépare-toi à t\'arrêter.',
+    sens: 'Personne ne s\'engage ici, quel que soit le véhicule.',
+    v50: 'Interdit de dépasser 50 km/h jusqu\'à la prochaine intersection ou au panneau de fin.',
+    gauche: 'Tourner à gauche est interdit à la prochaine intersection.',
+    depasser: 'Interdit de doubler les véhicules à moteur, sauf les deux-roues.',
+    stationnement: 'Arrêt possible pour déposer quelqu\'un, mais pas de stationnement.',
+    arret: 'Ni arrêt ni stationnement, même quelques secondes.',
+    droite: 'À la prochaine intersection, tu dois tourner à droite.',
+    contourner: 'Passe obligatoirement par la droite de l\'obstacle.',
+    vmin: 'Rouler à 30 km/h au moins, sauf circulation dense.',
+    stop: 'Arrêt complet à la ligne, puis céder le passage à tous.',
+    cedez: 'Céder le passage ; s\'arrêter seulement si un véhicule arrive.',
+    prioritaire: 'Tu es prioritaire aux intersections jusqu\'au panneau de fin.',
+    finprio: 'Tu n\'es plus prioritaire : la priorité à droite revient.',
+    parking: 'Zone de stationnement autorisée.',
+    hopital: 'Hôpital à proximité : évite le klaxon, sois attentif.',
+    sensunique: 'Route à sens unique dans le sens de la flèche.'
+  };
+  let idx = 0;
   function drawSigns() {
+    idx = 0;
     grid.innerHTML = CATALOG.filter(c => cur === 'all' || c[0] === cur).flatMap(c => c[2].map(s =>
-      `<div class="sign-card">${SIGNS[s[0]].replace('<svg ', `<svg role="img" aria-label="${s[1]}" `)}<b>${s[1]}</b><span>${c[1]}</span></div>`)).join('');
+      `<button type="button" class="sign-card" aria-pressed="false" style="--i:${idx++}" aria-label="${s[1]} : afficher la signification"><span class="flip"><span class="face">${SIGNS[s[0]].replace('<svg ', '<svg aria-hidden="true" ')}<b>${s[1]}</b><span>${c[1]}</span></span><span class="face back"><b>${s[1]}</b><p>${MEANING[s[0]] || ''}</p></span></span></button>`)).join('');
   }
+  grid.addEventListener('click', e => { const b = e.target.closest('.sign-card'); if (!b) return; b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); });
   filters.addEventListener('click', e => { const b = e.target.closest('.filter'); if (!b) return; cur = b.dataset.f; drawFilters(); drawSigns(); });
   drawFilters(); drawSigns();
 
@@ -973,6 +1085,7 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     const it = Q[i];
     const good = sel.size === it.c.length && it.c.every(k => sel.has(k));
     results[i] = { good, sel: [...sel] };
+    if (good && mode === 'train' && window.__burst) window.__burst(26);
     if (mode === 'exam') { next(); return; }
     box.querySelectorAll('.opt').forEach(b => {
       const k = +b.dataset.k; b.disabled = true;
@@ -997,6 +1110,9 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
           <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn-exam val" id="again">Refaire la série</button>${mode === 'train' ? '<button type="button" class="btn-exam clr" id="to-exam">Passer en mode examen</button>' : ''}</div></div>
         <ol>${Q.map((q, k) => `<li>${results[k] && results[k].good ? ICON_OK : ICON_KO}<span>${q.q}<small>Réponse ${q.c.map(c => L[c]).join(' et ')} : ${q.c.map(c => q.a[c]).join(' ; ')}</small></span></li>`).join('')}</ol>
       </div></div>`;
+    const sc = box.querySelector('.score'); if (sc && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const t0 = performance.now(); const tick = t => { const k = Math.min(1, (t - t0) / 900); sc.firstChild.textContent = Math.round(on20 * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }
+    const bs = box.querySelector('.bar20 span'); if (bs) { const w = bs.style.width; bs.style.width = '0%'; requestAnimationFrame(() => requestAnimationFrame(() => { bs.style.width = w; })); }
+    if (ok && window.__burst) setTimeout(() => window.__burst(90), 500);
     box.querySelector('#again').addEventListener('click', restart);
     const te = box.querySelector('#to-exam'); if (te) te.addEventListener('click', () => { mode = 'exam'; restart(); });
   }
@@ -1045,5 +1161,72 @@ table.tarifs { width: 100%; border-collapse: collapse; font-size: .97rem; min-wi
     const pay = document.querySelector('input[name="pay"]:checked').value;
     msg.innerHTML = `<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="var(--green)"/><path d="M6 10.3l2.6 2.6L14 7.3" fill="none" stroke="var(--green-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Leçon réservée (démonstration).</b> ${d[2]} ${day} novembre à ${fmt(slot)}, départ ${document.getElementById('b-lieu').value}. Paiement : ${pay}. Dans la version réelle, la confirmation arrive par SMS.</span>`;
   });
+
+  /* ---------- Animation et interactions ---------- */
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  if (!reduce && 'IntersectionObserver' in window) root.classList.add('js-motion');
+
+  // Route de progression avec la voiture
+  const road = document.createElement('div');
+  road.className = 'roadbar'; road.setAttribute('aria-hidden', 'true');
+  road.innerHTML = '<span class="fill"></span><svg class="car" viewBox="0 0 26 16"><rect x="2" y="5" width="22" height="7" rx="3" fill="#0b6b46"/><path d="M7 5l3-4h7l3 4z" fill="#0b6b46"/><path d="M10.5 2h6l2 3h-10z" fill="#a9d7c2"/><circle cx="7.5" cy="12.5" r="2.5" fill="#111"/><circle cx="18.5" cy="12.5" r="2.5" fill="#111"/><rect x="22" y="7" width="2.5" height="2" rx="1" fill="#f2c230"/></svg>';
+  document.body.prepend(road);
+  const fill = road.querySelector('.fill'), car = road.querySelector('.car');
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const p = max > 0 ? Math.min(1, scrollY / max) : 0;
+      fill.style.transform = `scaleX(${p})`;
+      car.style.transform = `translateX(${p * (innerWidth - 26)}px)`;
+      ticking = false;
+    });
+  };
+  addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
+
+  // Révélation au défilement (seulement sous la ligne de flottaison)
+  if (root.classList.contains('js-motion')) {
+    const targets = document.querySelectorAll('.sec-head, .path li, .exam-wrap aside, .panel, .lang, .agency, .book, .table-scroll, .pay-note, .laptop, .pro-list li, .faq details, .contact-box, .cta .c > *');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    const groups = new Map();
+    targets.forEach(el => {
+      if (el.getBoundingClientRect().top < innerHeight) return;
+      const parent = el.parentElement; const n = groups.get(parent) || 0; groups.set(parent, n + 1);
+      el.style.setProperty('--d', Math.min(n, 6) * 70 + 'ms');
+      el.classList.add('rv'); io.observe(el);
+    });
+    // Courbe et comparatif
+    const once = (sel, cls, cb) => { const el = document.querySelector(sel); if (!el) return; const o = new IntersectionObserver(es => { if (es[0].isIntersecting) { el.classList.add(cls); cb && cb(el); o.disconnect(); } }, { threshold: .35 }); o.observe(el); };
+    once('.chart', 'drawn', () => countUp(document.querySelector('.avg b'), 15.8, 1, 1400));
+    document.querySelectorAll('.compare td.us svg').forEach((s, k) => s.style.setProperty('--i', k));
+    once('.compare', 'in');
+  }
+  function countUp(el, to, dec, ms) {
+    if (!el || reduce) return; const t0 = performance.now();
+    const step = t => { const k = Math.min(1, (t - t0) / ms), v = to * (1 - Math.pow(1 - k, 3)); el.textContent = v.toFixed(dec).replace('.', ','); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  const chart = document.querySelector('.chart');
+  if (chart) { chart.querySelector('polyline')?.classList.add('line'); chart.querySelector('polygon')?.classList.add('area'); chart.querySelectorAll('g[fill="var(--paper)"], circle[r="6"]').forEach(g => g.classList.add('pts')); }
+
+  // Téléphone vivant : anneau qui se remplit, paiement reçu en boucle
+  const ring = document.querySelector('.phone .ready svg circle:nth-of-type(2)');
+  if (ring && !reduce) { ring.classList.add('ring-p'); const full = ring.getAttribute('stroke-dasharray'); ring.setAttribute('stroke-dasharray', '0 164'); setTimeout(() => ring.setAttribute('stroke-dasharray', full), 500); }
+  const toast = document.querySelector('.float-card');
+  if (toast && !reduce) {
+    const pays = [['55 000 FCFA via MTN MoMo', 'Paiement reçu'], ['Examen blanc : 17/20', 'Au-dessus de la barre'], ['Jeu. 14 nov., 14 h', 'Leçon confirmée'], ['50 000 FCFA via Moov Money', 'Paiement reçu']];
+    let k = 0;
+    setInterval(() => { if (document.hidden) return; k = (k + 1) % pays.length; toast.querySelector('span:last-child').innerHTML = `<b>${pays[k][1]}</b><br>${pays[k][0]}`; toast.classList.remove('ping'); void toast.offsetWidth; toast.classList.add('ping'); }, 3800);
+  }
+
+  // Confettis pour une bonne réponse ou un examen réussi
+  window.__burst = (n) => {
+    if (reduce) return; const b = document.createElement('div'); b.className = 'burst';
+    const cols = ['#f2c230', '#3fbf86', '#ffffff', '#5d97e6', '#f0565d'];
+    for (let k = 0; k < n; k++) { const i = document.createElement('i'); i.style.left = Math.random() * 100 + '%'; i.style.background = cols[k % cols.length]; i.style.setProperty('--x', (Math.random() * 160 - 80) + 'px'); i.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg'); i.style.setProperty('--t', (1100 + Math.random() * 900) + 'ms'); i.style.animationDelay = Math.random() * 200 + 'ms'; b.appendChild(i); }
+    box.appendChild(b); setTimeout(() => b.remove(), 2400);
+  };
 })();
 </script>
